@@ -6,7 +6,7 @@ const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 // Define public routes that should redirect to admin if the user is an admin
 const isPublicRoute = createRouteMatcher(["/"]);
 
-export default clerkMiddleware(async (auth, req) => {
+export const proxy = clerkMiddleware(async (auth, req) => {
     const session = await auth();
     const claims = session.sessionClaims;
     const role = (claims?.metadata as { role?: string })?.role;
