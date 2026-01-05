@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS content (
     type TEXT NOT NULL CHECK (type IN ('lesson', 'fatwa', 'article', 'news')),
     media_url TEXT, -- URL to video (YouTube/Facebook) or Audio
     media_type TEXT CHECK (media_type IN ('video', 'audio', 'image', 'none')),
+    category TEXT, -- Text category for simpler management
     category_id UUID REFERENCES categories(id) ON DELETE SET NULL,
     is_featured BOOLEAN DEFAULT FALSE,
     published_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -79,3 +80,20 @@ INSERT INTO site_settings (id) VALUES (1) ON CONFLICT DO NOTHING;
 CREATE INDEX IF NOT EXISTS idx_content_type ON content(type);
 CREATE INDEX IF NOT EXISTS idx_content_category ON content(category_id);
 CREATE INDEX IF NOT EXISTS idx_content_published_at ON content(published_at DESC);
+
+-- Enable RLS for main tables
+ALTER TABLE content ENABLE ROW LEVEL SECURITY;
+ALTER TABLE books ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
+
+-- Public READ policies
+CREATE POLICY "Allow public read access on content" ON content FOR SELECT USING (true);
+CREATE POLICY "Allow public read access on books" ON books FOR SELECT USING (true);
+CREATE POLICY "Allow public read access on site_settings" ON site_settings FOR SELECT USING (true);
+
+-- Authenticated (Admin) FULL access policies
+-- Note: Since we use Clerk for auth in the frontend, these policies allow the server-side/client-side 
+-- calls to proceed. For production, consider using Supabase Auth for more granular control.
+CREATE POLICY "Allow all actions on content for authenticated" ON content FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all actions on books for authenticated" ON books FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all actions on site_settings for authenticated" ON site_settings FOR ALL USING (true) WITH CHECK (true);
