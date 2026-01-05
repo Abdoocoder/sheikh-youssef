@@ -9,6 +9,7 @@ export default function AdminLessons() {
     const [lessons, setLessons] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [showAddForm, setShowAddForm] = useState(false);
+    const [editingLesson, setEditingLesson] = useState<any>(null);
     const [newLesson, setNewLesson] = useState({
         title: "",
         media_url: "",
@@ -73,6 +74,27 @@ export default function AdminLessons() {
         }
     };
 
+    const handleUpdateLesson = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingLesson) return;
+
+        const { error } = await supabase
+            .from('content')
+            .update({
+                title: editingLesson.title,
+                media_url: editingLesson.media_url,
+                category: editingLesson.category
+            })
+            .eq('id', editingLesson.id);
+
+        if (error) {
+            alert('خطأ في التحديث: ' + error.message);
+        } else {
+            setLessons(lessons.map(l => l.id === editingLesson.id ? editingLesson : l));
+            setEditingLesson(null);
+        }
+    };
+
     return (
         <div className="space-y-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -88,6 +110,70 @@ export default function AdminLessons() {
                     {showAddForm ? "إلغاء" : "إضافة درس جديد"}
                 </button>
             </div>
+
+            {/* Edit Lesson Modal */}
+            {editingLesson && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="bg-secondary p-6 text-secondary-foreground">
+                            <h2 className="text-xl font-bold font-serif flex items-center gap-2">
+                                <Edit2 className="h-6 w-6" />
+                                تعديل بيانات الدرس
+                            </h2>
+                        </div>
+                        <form onSubmit={handleUpdateLesson} className="p-6 space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">عنوان الدرس</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    value={editingLesson.title}
+                                    onChange={(e) => setEditingLesson({ ...editingLesson, title: e.target.value })}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">رابط يوتيوب / الوسائط</label>
+                                <input
+                                    required
+                                    type="url"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                    value={editingLesson.media_url}
+                                    onChange={(e) => setEditingLesson({ ...editingLesson, media_url: e.target.value })}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">التصنيف</label>
+                                <select
+                                    className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    value={editingLesson.category}
+                                    onChange={(e) => setEditingLesson({ ...editingLesson, category: e.target.value })}
+                                >
+                                    <option>أدب طلب العلم</option>
+                                    <option>الفقه</option>
+                                    <option>التزكية</option>
+                                    <option>العقيدة</option>
+                                </select>
+                            </div>
+                            <div className="flex gap-3 pt-4">
+                                <button
+                                    type="submit"
+                                    className="flex-grow bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition-all shadow-lg"
+                                >
+                                    حفظ التعديلات
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingLesson(null)}
+                                    className="px-6 bg-muted text-muted-foreground py-3 rounded-xl font-bold hover:bg-muted/80 transition-all"
+                                >
+                                    إلغاء
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Add Lesson Form */}
             {showAddForm && (
@@ -205,7 +291,7 @@ export default function AdminLessons() {
                                     </td>
                                     <td className="py-5 px-4">
                                         <span className="px-3 py-1 bg-primary/5 text-primary text-xs rounded-full border border-primary/10">
-                                            {lesson.type}
+                                            {lesson.category}
                                         </span>
                                     </td>
                                     <td className="py-5 px-4 text-sm text-muted-foreground">
@@ -213,7 +299,11 @@ export default function AdminLessons() {
                                     </td>
                                     <td className="py-5 px-4 font-serif">
                                         <div className="flex gap-2">
-                                            <button className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-all" title="تعديل">
+                                            <button
+                                                onClick={() => setEditingLesson(lesson)}
+                                                className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-all"
+                                                title="تعديل"
+                                            >
                                                 <Edit2 className="h-4 w-4" />
                                             </button>
                                             <button

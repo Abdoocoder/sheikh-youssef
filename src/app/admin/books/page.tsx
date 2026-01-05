@@ -10,6 +10,7 @@ export default function AdminBooks() {
     const [books, setBooks] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [showAddForm, setShowAddForm] = useState(false);
+    const [editingBook, setEditingBook] = useState<any>(null);
     const [newBook, setNewBook] = useState({
         title: "",
         description: "",
@@ -72,6 +73,29 @@ export default function AdminBooks() {
                 published_year: new Date().getFullYear(),
                 pdf_url: ""
             });
+        }
+    };
+
+    const handleUpdateBook = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingBook) return;
+
+        const { error } = await supabase
+            .from('books')
+            .update({
+                title: editingBook.title,
+                description: editingBook.description,
+                cover_url: editingBook.cover_url,
+                published_year: editingBook.published_year,
+                pdf_url: editingBook.pdf_url
+            })
+            .eq('id', editingBook.id);
+
+        if (error) {
+            alert('خطأ في التحديث: ' + error.message);
+        } else {
+            setBooks(books.map(b => b.id === editingBook.id ? editingBook : b));
+            setEditingBook(null);
         }
     };
 
@@ -162,6 +186,86 @@ export default function AdminBooks() {
                 </div>
             )}
 
+            {/* Edit Book Modal */}
+            {editingBook && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 text-right" dir="rtl">
+                        <div className="bg-secondary p-6 text-secondary-foreground">
+                            <h2 className="text-xl font-bold font-serif flex items-center gap-2">
+                                <Edit2 className="h-6 w-6" />
+                                تعديل بيانات الكتاب
+                            </h2>
+                        </div>
+                        <form onSubmit={handleUpdateBook} className="p-6 space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">عنوان الكتاب</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    value={editingBook.title}
+                                    onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">وصف الكتاب</label>
+                                <textarea
+                                    required
+                                    rows={3}
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    value={editingBook.description}
+                                    onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-bold text-muted-foreground px-1">رابط الغلاف</label>
+                                    <input
+                                        type="url"
+                                        className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                        value={editingBook.cover_url}
+                                        onChange={(e) => setEditingBook({ ...editingBook, cover_url: e.target.value })}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-bold text-muted-foreground px-1">سنة النشر</label>
+                                    <input
+                                        type="number"
+                                        className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                        value={editingBook.published_year}
+                                        onChange={(e) => setEditingBook({ ...editingBook, published_year: parseInt(e.target.value) })}
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">رابط الـ PDF</label>
+                                <input
+                                    type="url"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                    value={editingBook.pdf_url}
+                                    onChange={(e) => setEditingBook({ ...editingBook, pdf_url: e.target.value })}
+                                />
+                            </div>
+                            <div className="flex gap-3 pt-4">
+                                <button
+                                    type="submit"
+                                    className="flex-grow bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition-all shadow-lg"
+                                >
+                                    حفظ التعديلات
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingBook(null)}
+                                    className="px-6 bg-muted text-muted-foreground py-3 rounded-xl font-bold hover:bg-muted/80 transition-all"
+                                >
+                                    إلغاء
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             {/* Search */}
             <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -218,7 +322,11 @@ export default function AdminBooks() {
                                 <div className="mt-auto flex items-center justify-between border-t border-border pt-4">
                                     <span className="text-xs font-bold text-muted-foreground">{book.published_year} م</span>
                                     <div className="flex gap-1">
-                                        <button className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-all" title="تعديل">
+                                        <button
+                                            onClick={() => setEditingBook(book)}
+                                            className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-all"
+                                            title="تعديل"
+                                        >
                                             <Edit2 className="h-4 w-4" />
                                         </button>
                                         <button

@@ -58,6 +58,23 @@ CREATE TABLE IF NOT EXISTS awrad (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Site settings (Single row for site configuration)
+CREATE TABLE IF NOT EXISTS site_settings (
+    id INTEGER PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+    site_title TEXT DEFAULT 'فضيلة الشيخ يوسف حازم أبو غزالة',
+    site_description TEXT DEFAULT 'الموقع الرسمي للشيخ يوسف حازم أبو غزالة',
+    contact_email TEXT DEFAULT 'contact@sheikhyoussef.com',
+    contact_phone TEXT,
+    whatsapp_number TEXT,
+    facebook_url TEXT,
+    youtube_url TEXT,
+    telegram_url TEXT,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Insert default settings row
+INSERT INTO site_settings (id) VALUES (1) ON CONFLICT DO NOTHING;
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_content_type ON content(type);
 CREATE INDEX IF NOT EXISTS idx_content_category ON content(category_id);
