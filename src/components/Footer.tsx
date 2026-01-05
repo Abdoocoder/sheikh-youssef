@@ -16,9 +16,7 @@ export async function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                     {/* Brand Section */}
                     <div className="md:col-span-2">
-                        <h3 className="font-serif text-3xl font-bold mb-6 text-secondary">
-                            {settings?.site_title || "موقع الشيخ يوسف حازم أبو غزالة"}
-                        </h3>
+                        {settings?.site_title?.replace("فضيلة الشيخ", "موقع الشيخ") || "موقع الشيخ يوسف حازم أبو غزالة"}
                         <p className="text-primary-foreground/70 text-lg mb-8 max-w-md leading-relaxed">
                             {settings?.site_description || "منصة علمية تهدف إلى نشر العلم الشرعي الصحيح المتصل بالسند، متبعين منهج أهل السنة والجماعة في العلم والعمل والسلوك."}
                         </p>
@@ -82,7 +80,7 @@ export async function Footer() {
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-primary-foreground/40 text-sm">
-                    <p>© {new Date().getFullYear()} جميع الحقوق محفوظة لأسرة الشيخ يوسف أبو غزالة. بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة</p>
+                    <p>© {new Date().getFullYear()} جميع الحقوق محفوظة لموقع الشيخ يوسف أبو غزالة. بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة</p>
                     <div className="flex gap-6">
                         <Link href="/privacy" className="hover:text-white">سياسة الخصوصية</Link>
                         <Link href="/terms" className="hover:text-white">شروط الاستخدام</Link>
