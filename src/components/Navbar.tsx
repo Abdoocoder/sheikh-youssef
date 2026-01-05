@@ -35,7 +35,7 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:block">
-            <div className="flex items-baseline space-x-8 space-x-reverse">
+            <div className="flex items-baseline space-x-12 space-x-reverse">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
