@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SectionHeading } from "@/components/Hero";
 import { GraduationCap, Award, Book, MapPin, Calendar, Mail } from "lucide-react";
+import Image from "next/image";
 
 export default function BioPage() {
     return (
@@ -18,8 +19,13 @@ export default function BioPage() {
                         <div className="lg:col-span-1 space-y-8">
                             <div className="glass p-8 rounded-3xl text-center relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full" />
-                                <div className="w-32 h-32 bg-primary/10 rounded-full mx-auto mb-6 flex items-center justify-center border-2 border-secondary/20">
-                                    <span className="font-serif text-3xl font-bold text-primary">ي</span>
+                                <div className="w-32 h-32 relative rounded-full mx-auto mb-6 border-4 border-secondary/20 shadow-xl overflow-hidden">
+                                    <Image
+                                        src="/assets/sheikh-youssef.png"
+                                        alt="الشيخ يوسف حازم أبو غزالة"
+                                        fill
+                                        className="object-cover"
+                                    />
                                 </div>
                                 <h2 className="text-2xl font-serif font-bold text-primary mb-2">يوسف حازم أبو غزالة</h2>
                                 <p className="text-muted-foreground mb-6">مدرس الفقه الحنفي</p>

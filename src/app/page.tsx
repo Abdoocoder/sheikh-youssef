@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { FeaturedContent } from "@/components/FeaturedContent";
 import { Footer } from "@/components/Footer";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -21,7 +22,17 @@ export default function Home() {
               </p>
               <div className="flex justify-center gap-6 items-center">
                 <div className="h-0.5 w-16 bg-secondary/50 rounded-full" />
-                <span className="font-serif text-3xl text-secondary">الشيخ يوسف أبو غزالة</span>
+                <div className="flex items-center gap-3">
+                  <div className="h-12 w-12 relative rounded-full overflow-hidden border-2 border-secondary/30 grayscale hover:grayscale-0 transition-all duration-500">
+                    <Image
+                      src="/assets/sheikh-youssef.png"
+                      alt="الشيخ يوسف"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="font-serif text-3xl text-secondary">الشيخ يوسف أبو غزالة</span>
+                </div>
                 <div className="h-0.5 w-16 bg-secondary/50 rounded-full" />
               </div>
             </div>
