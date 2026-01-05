@@ -7,6 +7,7 @@ import { SectionHeading } from "./Hero";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { VideoModal } from "./VideoModal";
+import Link from "next/link";
 
 interface Lesson {
     id: string;
@@ -169,9 +170,11 @@ export function FeaturedContent() {
                 />
 
                 <div className="mt-16 text-center">
-                    <button className="px-8 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-lg border border-primary/20">
-                        تصفح جميع الدروس
-                    </button>
+                    <Link href="/lessons">
+                        <button className="px-8 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-lg border border-primary/20">
+                            تصفح جميع الدروس
+                        </button>
+                    </Link>
                 </div>
             </div>
         </section>
