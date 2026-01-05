@@ -124,7 +124,7 @@ export default function AdminLessons() {
             {/* Edit Lesson Modal */}
             {editingLesson && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="bg-card w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                         <div className="bg-secondary p-6 text-secondary-foreground">
                             <h2 className="text-xl font-bold font-serif flex items-center gap-2">
                                 <Edit2 className="h-6 w-6" />
@@ -137,7 +137,7 @@ export default function AdminLessons() {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary bg-background"
                                     value={editingLesson.title || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, title: e.target.value })}
                                 />
@@ -147,7 +147,7 @@ export default function AdminLessons() {
                                 <input
                                     required
                                     type="url"
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary bg-background"
                                     value={editingLesson.media_url || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, media_url: e.target.value })}
                                 />
@@ -155,7 +155,7 @@ export default function AdminLessons() {
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-muted-foreground px-1">التصنيف</label>
                                 <select
-                                    className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                                    className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                     value={editingLesson.category || "أدب طلب العلم"}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, category: e.target.value })}
                                 >
@@ -187,7 +187,7 @@ export default function AdminLessons() {
 
             {/* Add Lesson Form */}
             {showAddForm && (
-                <div className="bg-white p-6 rounded-2xl border border-secondary/20 shadow-xl animate-in fade-in slide-in-from-top-4 duration-300">
+                <div className="bg-card p-6 rounded-2xl border border-secondary/20 shadow-xl animate-in fade-in slide-in-from-top-4 duration-300">
                     <h2 className="text-lg font-bold text-primary mb-4 flex items-center gap-2">
                         <Plus className="h-5 w-5 text-secondary" />
                         إضافة درس جديد
@@ -199,7 +199,7 @@ export default function AdminLessons() {
                                 required
                                 type="text"
                                 placeholder="مثال: شرح كتاب الوجيز..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary placeholder:text-primary/50 bg-background"
                                 value={newLesson.title}
                                 onChange={(e) => setNewLesson({ ...newLesson, title: e.target.value })}
                             />
@@ -210,7 +210,7 @@ export default function AdminLessons() {
                                 required
                                 type="url"
                                 placeholder="https://youtube.com/..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary placeholder:text-primary/50 bg-background"
                                 value={newLesson.media_url}
                                 onChange={(e) => setNewLesson({ ...newLesson, media_url: e.target.value })}
                             />
@@ -218,7 +218,7 @@ export default function AdminLessons() {
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-muted-foreground px-1">التصنيف</label>
                             <select
-                                className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={newLesson.category}
                                 onChange={(e) => setNewLesson({ ...newLesson, category: e.target.value })}
                             >
@@ -247,12 +247,12 @@ export default function AdminLessons() {
                     <input
                         type="text"
                         placeholder="البحث في الدروس..."
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary placeholder:text-primary/50 bg-background"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <select className="px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary">
+                <select className="px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary">
                     <option>كل التصنيفات</option>
                     <option>الفقه</option>
                     <option>التزكية</option>
@@ -264,7 +264,7 @@ export default function AdminLessons() {
             <div className="overflow-x-auto">
                 <table className="w-full border-collapse">
                     <thead>
-                        <tr className="border-b border-border text-right text-muted-foreground text-sm">
+                        <tr className="border-b border-border text-right text-primary/70 text-sm">
                             <th className="pb-4 font-bold px-4">عنوان الدرس</th>
                             <th className="pb-4 font-bold px-4">التصنيف</th>
                             <th className="pb-4 font-bold px-4">التاريخ</th>

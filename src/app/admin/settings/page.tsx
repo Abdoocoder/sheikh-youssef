@@ -92,7 +92,7 @@ export default function AdminSettings() {
 
             <div className="grid grid-cols-1 gap-8">
                 {/* General Info */}
-                <section className="bg-white overflow-hidden rounded-2xl border border-border shadow-sm">
+                <section className="bg-card overflow-hidden rounded-2xl border border-border shadow-sm">
                     <div className="bg-muted/30 px-6 py-4 border-b border-border flex items-center gap-3">
                         <Globe className="h-5 w-5 text-secondary" />
                         <h2 className="font-bold text-primary">المعلومات العامة</h2>
@@ -103,7 +103,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="مثال: فضيلة الشيخ يوسف حازم..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.site_title || ""}
                                 onChange={(e) => setSettings({ ...settings, site_title: e.target.value })}
                             />
@@ -113,7 +113,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="وصف يظهر في محركات البحث..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.site_description || ""}
                                 onChange={(e) => setSettings({ ...settings, site_description: e.target.value })}
                             />
@@ -122,7 +122,7 @@ export default function AdminSettings() {
                 </section>
 
                 {/* Contact Info */}
-                <section className="bg-white overflow-hidden rounded-2xl border border-border shadow-sm">
+                <section className="bg-card overflow-hidden rounded-2xl border border-border shadow-sm">
                     <div className="bg-muted/30 px-6 py-4 border-b border-border flex items-center gap-3">
                         <Mail className="h-5 w-5 text-secondary" />
                         <h2 className="font-bold text-primary">بيانات التواصل المباشر</h2>
@@ -133,7 +133,7 @@ export default function AdminSettings() {
                             <input
                                 type="email"
                                 placeholder="admin@example.com"
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.contact_email || ""}
                                 onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
                             />
@@ -143,7 +143,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="+9627XXXXXXXX"
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.whatsapp_number || ""}
                                 onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
                             />
@@ -152,7 +152,7 @@ export default function AdminSettings() {
                 </section>
 
                 {/* Social Media */}
-                <section className="bg-white overflow-hidden rounded-2xl border border-border shadow-sm">
+                <section className="bg-card overflow-hidden rounded-2xl border border-border shadow-sm">
                     <div className="bg-muted/30 px-6 py-4 border-b border-border flex items-center gap-3">
                         <Share2 className="h-5 w-5 text-secondary" />
                         <h2 className="font-bold text-primary">حسابات التواصل الاجتماعي</h2>
@@ -163,7 +163,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="URL..."
-                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary"
+                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.facebook_url || ""}
                                 onChange={(e) => setSettings({ ...settings, facebook_url: e.target.value })}
                             />
@@ -173,7 +173,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="URL..."
-                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary"
+                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.youtube_url || ""}
                                 onChange={(e) => setSettings({ ...settings, youtube_url: e.target.value })}
                             />
@@ -183,7 +183,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="URL..."
-                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary"
+                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary placeholder:text-primary/50 bg-background"
                                 value={settings.telegram_url || ""}
                                 onChange={(e) => setSettings({ ...settings, telegram_url: e.target.value })}
                             />

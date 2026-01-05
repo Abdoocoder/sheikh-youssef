@@ -83,7 +83,7 @@ export default function AdminFatwas() {
 
             {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-2xl border border-border shadow-sm flex items-center gap-4">
+                <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex items-center gap-4">
                     <div className="bg-orange-100 p-3 rounded-xl text-orange-600">
                         <Clock className="h-6 w-6" />
                     </div>
@@ -92,7 +92,7 @@ export default function AdminFatwas() {
                         <span className="text-xs text-muted-foreground uppercase tracking-wider font-bold">بانتظار الرد</span>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-border shadow-sm flex items-center gap-4">
+                <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex items-center gap-4">
                     <div className="bg-green-100 p-3 rounded-xl text-green-600">
                         <CheckCircle2 className="h-6 w-6" />
                     </div>
@@ -101,7 +101,7 @@ export default function AdminFatwas() {
                         <span className="text-xs text-muted-foreground uppercase tracking-wider font-bold">تم الرد عليها</span>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-border shadow-sm flex items-center gap-4">
+                <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex items-center gap-4">
                     <div className="bg-primary/5 p-3 rounded-xl text-primary">
                         <MessageSquare className="h-6 w-6" />
                     </div>
@@ -118,7 +118,7 @@ export default function AdminFatwas() {
                 <input
                     type="text"
                     placeholder="البحث في الأسئلة..."
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary placeholder:text-primary/50 bg-background"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -127,7 +127,7 @@ export default function AdminFatwas() {
             {/* Reply Form Modal-like UI */}
             {replyingTo && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="bg-card w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                         <div className="bg-primary p-6 text-white">
                             <h2 className="text-xl font-bold font-serif flex items-center gap-2">
                                 <Reply className="h-6 w-6" />
@@ -142,7 +142,7 @@ export default function AdminFatwas() {
                                     required
                                     rows={8}
                                     placeholder="اكتب الإجابة هنا..."
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif leading-relaxed text-primary"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif leading-relaxed text-primary placeholder:text-primary/50 bg-background"
                                     value={replyBody}
                                     onChange={(e) => setReplyBody(e.target.value)}
                                 />
@@ -175,19 +175,19 @@ export default function AdminFatwas() {
                         <span className="text-muted-foreground font-serif">جاري تحميل الفتاوى...</span>
                     </div>
                 ) : fatwas.length === 0 ? (
-                    <div className="py-20 text-center bg-white rounded-2xl border border-dashed border-border">
+                    <div className="py-20 text-center bg-card rounded-2xl border border-dashed border-border">
                         <span className="text-muted-foreground font-serif">لا يوجد فتاوى واردة حالياً.</span>
                     </div>
                 ) : (
                     fatwas.filter(f => f.title.includes(searchTerm)).map((fatwa) => (
-                        <div key={fatwa.id} className="bg-white p-6 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all group">
+                        <div key={fatwa.id} className="bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all group">
                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                                 <div className="space-y-3 flex-grow">
                                     <div className="flex items-center gap-3">
                                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest ${fatwa.body ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
                                             {fatwa.body ? 'تم الرد' : 'بانتظار الرد'}
                                         </span>
-                                        <span className="text-xs text-muted-foreground font-serif">{new Date(fatwa.created_at).toLocaleDateString('ar-EG')}</span>
+                                        <span className="text-xs text-primary/70 font-serif">{new Date(fatwa.created_at).toLocaleDateString('ar-EG')}</span>
                                         <span className="text-xs bg-muted px-2 py-0.5 rounded text-muted-foreground">{fatwa.type}</span>
                                     </div>
                                     <h3 className="text-lg font-bold text-primary group-hover:text-secondary transition-colors leading-relaxed">

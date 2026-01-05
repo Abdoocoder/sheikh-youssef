@@ -14,7 +14,7 @@ export default function AdminLayout({
                     <div className="flex flex-col md:flex-row gap-8">
                         {/* Admin Sidebar */}
                         <aside className="w-full md:w-64 space-y-2">
-                            <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest px-4 mb-4">لوحة التحكم</h2>
+                            <h2 className="text-sm font-bold text-primary uppercase tracking-widest px-4 mb-4 opacity-70">لوحة التحكم</h2>
                             {[
                                 { name: "الإحصائيات", href: "/admin" },
                                 { name: "إدارة الدروس", href: "/admin/lessons" },
@@ -25,7 +25,7 @@ export default function AdminLayout({
                                 <a
                                     key={item.href}
                                     href={item.href}
-                                    className="block px-4 py-3 rounded-xl hover:bg-white hover:shadow-sm transition-all text-primary font-medium border border-transparent hover:border-border"
+                                    className="block px-4 py-3 rounded-xl hover:bg-white/10 hover:shadow-sm transition-all text-primary font-bold border border-transparent hover:border-border"
                                 >
                                     {item.name}
                                 </a>
@@ -33,7 +33,7 @@ export default function AdminLayout({
                         </aside>
 
                         {/* Admin Content */}
-                        <main className="flex-grow bg-white rounded-3xl p-8 shadow-sm border border-border">
+                        <main className="flex-grow bg-card rounded-3xl p-8 shadow-sm border border-border">
                             {children}
                         </main>
                     </div>
