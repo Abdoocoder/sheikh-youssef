@@ -137,7 +137,7 @@ export default function AdminLessons() {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                     value={editingLesson.title || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, title: e.target.value })}
                                 />
@@ -147,7 +147,7 @@ export default function AdminLessons() {
                                 <input
                                     required
                                     type="url"
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                     value={editingLesson.media_url || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, media_url: e.target.value })}
                                 />
@@ -155,7 +155,7 @@ export default function AdminLessons() {
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-muted-foreground px-1">التصنيف</label>
                                 <select
-                                    className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                     value={editingLesson.category || "أدب طلب العلم"}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, category: e.target.value })}
                                 >
@@ -210,7 +210,7 @@ export default function AdminLessons() {
                                 required
                                 type="url"
                                 placeholder="https://youtube.com/..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                 value={newLesson.media_url}
                                 onChange={(e) => setNewLesson({ ...newLesson, media_url: e.target.value })}
                             />
@@ -218,7 +218,7 @@ export default function AdminLessons() {
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-muted-foreground px-1">التصنيف</label>
                             <select
-                                className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={newLesson.category}
                                 onChange={(e) => setNewLesson({ ...newLesson, category: e.target.value })}
                             >
@@ -247,12 +247,12 @@ export default function AdminLessons() {
                     <input
                         type="text"
                         placeholder="البحث في الدروس..."
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <select className="px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif">
+                <select className="px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary">
                     <option>كل التصنيفات</option>
                     <option>الفقه</option>
                     <option>التزكية</option>

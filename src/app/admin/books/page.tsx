@@ -139,7 +139,7 @@ export default function AdminBooks() {
                                 required
                                 type="text"
                                 placeholder="مثال: الوجيز في الفقه الحنفي..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={newBook.title}
                                 onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
                             />
@@ -150,7 +150,7 @@ export default function AdminBooks() {
                                 required
                                 rows={3}
                                 placeholder="وصف موجز للمحتوى العلمي للكتاب..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={newBook.description}
                                 onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}
                             />
@@ -160,7 +160,7 @@ export default function AdminBooks() {
                             <input
                                 type="url"
                                 placeholder="https://..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                 value={newBook.cover_url}
                                 onChange={(e) => setNewBook({ ...newBook, cover_url: e.target.value })}
                             />
@@ -169,7 +169,7 @@ export default function AdminBooks() {
                             <label className="text-sm font-bold text-muted-foreground px-1">سنة النشر</label>
                             <input
                                 type="number"
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={newBook.published_year}
                                 onChange={(e) => setNewBook({ ...newBook, published_year: parseInt(e.target.value) })}
                             />
@@ -179,7 +179,7 @@ export default function AdminBooks() {
                             <input
                                 type="url"
                                 placeholder="https://..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                 value={newBook.pdf_url}
                                 onChange={(e) => setNewBook({ ...newBook, pdf_url: e.target.value })}
                             />
@@ -212,7 +212,7 @@ export default function AdminBooks() {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                     value={editingBook.title || ""}
                                     onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
                                 />
@@ -222,7 +222,7 @@ export default function AdminBooks() {
                                 <textarea
                                     required
                                     rows={3}
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                     value={editingBook.description || ""}
                                     onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
                                 />
@@ -232,7 +232,7 @@ export default function AdminBooks() {
                                     <label className="text-sm font-bold text-muted-foreground px-1">رابط الغلاف</label>
                                     <input
                                         type="url"
-                                        className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                        className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                         value={editingBook.cover_url || ""}
                                         onChange={(e) => setEditingBook({ ...editingBook, cover_url: e.target.value })}
                                     />
@@ -241,7 +241,7 @@ export default function AdminBooks() {
                                     <label className="text-sm font-bold text-muted-foreground px-1">سنة النشر</label>
                                     <input
                                         type="number"
-                                        className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                        className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                         value={editingBook.published_year || ""}
                                         onChange={(e) => setEditingBook({ ...editingBook, published_year: parseInt(e.target.value) })}
                                     />
@@ -251,7 +251,7 @@ export default function AdminBooks() {
                                 <label className="text-sm font-bold text-muted-foreground px-1">رابط الـ PDF</label>
                                 <input
                                     type="url"
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                     value={editingBook.pdf_url || ""}
                                     onChange={(e) => setEditingBook({ ...editingBook, pdf_url: e.target.value })}
                                 />
@@ -282,7 +282,7 @@ export default function AdminBooks() {
                 <input
                     type="text"
                     placeholder="ابحث عن كتاب..."
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />

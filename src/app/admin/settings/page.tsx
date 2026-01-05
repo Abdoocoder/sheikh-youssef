@@ -103,7 +103,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="مثال: فضيلة الشيخ يوسف حازم..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={settings.site_title || ""}
                                 onChange={(e) => setSettings({ ...settings, site_title: e.target.value })}
                             />
@@ -113,7 +113,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="وصف يظهر في محركات البحث..."
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                                 value={settings.site_description || ""}
                                 onChange={(e) => setSettings({ ...settings, site_description: e.target.value })}
                             />
@@ -133,7 +133,7 @@ export default function AdminSettings() {
                             <input
                                 type="email"
                                 placeholder="admin@example.com"
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                 value={settings.contact_email || ""}
                                 onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
                             />
@@ -143,7 +143,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="+9627XXXXXXXX"
-                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary"
                                 value={settings.whatsapp_number || ""}
                                 onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
                             />
@@ -163,7 +163,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="URL..."
-                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm"
+                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary"
                                 value={settings.facebook_url || ""}
                                 onChange={(e) => setSettings({ ...settings, facebook_url: e.target.value })}
                             />
@@ -173,7 +173,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="URL..."
-                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm"
+                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary"
                                 value={settings.youtube_url || ""}
                                 onChange={(e) => setSettings({ ...settings, youtube_url: e.target.value })}
                             />
@@ -183,7 +183,7 @@ export default function AdminSettings() {
                             <input
                                 type="text"
                                 placeholder="URL..."
-                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm"
+                                className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm text-primary"
                                 value={settings.telegram_url || ""}
                                 onChange={(e) => setSettings({ ...settings, telegram_url: e.target.value })}
                             />

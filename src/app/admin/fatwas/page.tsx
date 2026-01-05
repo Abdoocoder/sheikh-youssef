@@ -118,7 +118,7 @@ export default function AdminFatwas() {
                 <input
                     type="text"
                     placeholder="البحث في الأسئلة..."
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -142,7 +142,7 @@ export default function AdminFatwas() {
                                     required
                                     rows={8}
                                     placeholder="اكتب الإجابة هنا..."
-                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif leading-relaxed"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif leading-relaxed text-primary"
                                     value={replyBody}
                                     onChange={(e) => setReplyBody(e.target.value)}
                                 />
