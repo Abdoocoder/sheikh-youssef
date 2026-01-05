@@ -1,7 +1,7 @@
 
 -- Seed data for Site Settings
 INSERT INTO site_settings (id, site_title, site_description, contact_email)
-VALUES (1, 'موقع فضيلة الشيخ يوسف حازم أبو غزالة', 'بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة', 'info@sheikhyoussef.com')
+VALUES (1, 'موقع الشيخ يوسف حازم أبو غزالة', 'بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة', 'info@sheikhyoussef.com')
 ON CONFLICT (id) DO UPDATE 
 SET site_title = EXCLUDED.site_title,
     site_description = EXCLUDED.site_description,

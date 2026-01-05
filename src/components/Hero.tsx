@@ -33,7 +33,7 @@ export function Hero() {
                     <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider text-secondary uppercase bg-secondary/10 border border-secondary/20 rounded-full">
                         بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة
                     </span>
-                    <h2 className="text-secondary/80 font-serif text-xl md:text-2xl mb-4 font-medium">موقع فضيلة الشيخ</h2>
+                    <h2 className="text-secondary/80 font-serif text-xl md:text-2xl mb-4 font-medium">موقع الشيخ</h2>
                     <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight">
                         <span className="text-shadow-gold">يوسف حازم أبو غزالة</span>
                     </h1>
