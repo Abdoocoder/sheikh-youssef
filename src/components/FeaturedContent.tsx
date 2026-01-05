@@ -2,8 +2,18 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { PlayCircle, Clock } from "lucide-react";
+import { PlayCircle, Clock, Loader2 } from "lucide-react";
 import { SectionHeading } from "./Hero";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+
+interface Lesson {
+    id: string;
+    title: string;
+    media_url: string;
+    category: string;
+    published_at: string;
+}
 
 const featuredLessons = [
     {
@@ -33,6 +43,44 @@ const featuredLessons = [
 ];
 
 export function FeaturedContent() {
+    const [lessons, setLessons] = useState<any[]>(featuredLessons);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchLessons = async () => {
+            const { data, error } = await supabase
+                .from('content')
+                .select('*')
+                .eq('type', 'lesson')
+                .order('published_at', { ascending: false })
+                .limit(3);
+
+            if (error) {
+                console.error('Error fetching featured lessons:', error);
+            } else if (data && data.length > 0) {
+                setLessons(data.map(item => ({
+                    id: item.id,
+                    title: item.title,
+                    category: item.category,
+                    date: new Date(item.published_at).toLocaleDateString('ar-EG'),
+                    image: "/assets/lesson-general.png",
+                    url: item.media_url
+                })));
+            }
+            setLoading(false);
+        };
+
+        fetchLessons();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="py-20 text-center">
+                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
+                <p className="text-muted-foreground font-serif">جاري تحميل الدروس...</p>
+            </div>
+        );
+    }
     return (
         <section className="py-32 bg-background">
             <div className="container mx-auto px-4">
@@ -44,7 +92,7 @@ export function FeaturedContent() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {featuredLessons.map((lesson, index) => (
+                    {lessons.map((lesson, index) => (
                         <motion.div
                             key={lesson.id}
                             initial={{ opacity: 0, y: 20 }}
