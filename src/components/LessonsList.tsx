@@ -3,10 +3,12 @@
 import { SectionHeading } from "@/components/Hero";
 import { Play, Search } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Calendar, Clock, PlayCircle } from "lucide-react";
+import { VideoModal } from "./VideoModal";
+import Image from "next/image";
 
 const lessons = [
     {
@@ -83,10 +85,17 @@ const lessons = [
     },
 ];
 
+const getYouTubeId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url?.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+};
+
 export function LessonsList() {
     const [lessonItems, setLessonItems] = useState<any[]>(lessons);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("الكل");
+    const [selectedVideo, setSelectedVideo] = useState<{ url: string; title: string } | null>(null);
     const categories = ["الكل", "الفقه", "التزكية", "الأصول", "التربية", "أذكار", "خطب", "التفسير", "أدب طلب العلم"];
 
     useEffect(() => {
@@ -164,42 +173,87 @@ export function LessonsList() {
                 </div>
 
                 {/* Lessons Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredLessons.map((lesson, index) => (
-                        <motion.div
-                            key={lesson.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.05 }}
-                            className="glass group rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500"
-                        >
-                            <a href={lesson.url} target="_blank" rel="noopener noreferrer">
-                                <div className="relative h-56 bg-primary/10 overflow-hidden">
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <Play className="h-16 w-16 text-secondary/40 group-hover:text-secondary group-hover:scale-110 transition-all duration-500" />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <AnimatePresence mode="popLayout">
+                        {filteredLessons.map((lesson, index) => {
+                            const ytId = getYouTubeId(lesson.url);
+                            const thumbnailUrl = ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : null;
+
+                            return (
+                                <motion.div
+                                    key={lesson.id}
+                                    layout
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                                    className="group relative bg-card/40 backdrop-blur-xl border border-primary/10 rounded-[2.5rem] overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] hover:border-secondary/30 transition-all duration-700 cursor-pointer"
+                                    onClick={() => setSelectedVideo({ url: lesson.url, title: lesson.title })}
+                                >
+                                    {/* Image Container */}
+                                    <div className="relative h-64 overflow-hidden">
+                                        {thumbnailUrl ? (
+                                            <Image
+                                                src={thumbnailUrl}
+                                                alt={lesson.title}
+                                                fill
+                                                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-primary/20 flex items-center justify-center">
+                                                <PlayCircle className="h-16 w-16 text-primary/20" />
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                                        {/* Category Badge - Over Image */}
+                                        <div className="absolute top-6 right-6 px-4 py-1.5 bg-secondary text-secondary-foreground text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg">
+                                            {lesson.category}
+                                        </div>
+
+                                        {/* Play Overlay */}
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-125 group-hover:scale-100">
+                                            <div className="bg-secondary p-5 rounded-full shadow-2xl shadow-secondary/50 transform group-hover:rotate-[360deg] transition-transform duration-1000">
+                                                <PlayCircle className="h-8 w-8 text-secondary-foreground fill-current" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-black/40 backdrop-blur-md text-white text-xs rounded-lg">
-                                        {lesson.duration}
+
+                                    {/* Content */}
+                                    <div className="p-8 text-right flex flex-col h-[280px]">
+                                        <div className="flex items-center justify-end gap-3 text-secondary/70 text-xs font-bold mb-4">
+                                            <Clock className="h-3.5 w-3.5" />
+                                            <span>{lesson.duration}</span>
+                                        </div>
+
+                                        <h3 className="text-xl font-bold text-primary mb-auto group-hover:text-secondary transition-colors line-clamp-3 leading-relaxed">
+                                            {lesson.title}
+                                        </h3>
+
+                                        <div className="mt-8 pt-6 border-t border-primary/5 flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-muted-foreground/60">
+                                                <Calendar className="h-4 w-4" />
+                                                <span className="text-xs font-medium">{lesson.date}</span>
+                                            </div>
+
+                                            <button className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-all">
+                                                <span>ابدأ التعلم</span>
+                                                <span className="transform translate-y-[2px]">←</span>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            <div className="p-8">
-                                <span className="text-secondary font-bold text-xs uppercase tracking-wider block mb-2">
-                                    {lesson.category}
-                                </span>
-                                <h3 className="text-xl font-bold text-primary mb-6 group-hover:text-secondary transition-colors line-clamp-2 min-h-[3.5rem]">
-                                    {lesson.title}
-                                </h3>
-                                <div className="flex items-center justify-between pt-6 border-t border-border">
-                                    <span className="text-muted-foreground text-sm">{lesson.date}</span>
-                                    <a href={lesson.url} target="_blank" rel="noopener noreferrer" className="bg-primary/5 text-primary hover:bg-primary hover:text-white p-2 rounded-lg transition-all">
-                                        <Play className="h-5 w-5" />
-                                    </a>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                                </motion.div>
+                            );
+                        })}
+                    </AnimatePresence>
                 </div>
+
+                <VideoModal
+                    isOpen={!!selectedVideo}
+                    onClose={() => setSelectedVideo(null)}
+                    videoUrl={selectedVideo?.url || ""}
+                    title={selectedVideo?.title || ""}
+                />
             </div>
         </main>
     );
