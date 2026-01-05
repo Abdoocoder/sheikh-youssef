@@ -110,10 +110,10 @@ export default function AdminBooks() {
     };
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-12 py-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-border pb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary mb-1">إدارة الكتب والمؤلفات</h1>
+                    <h1 className="text-3xl font-bold text-primary mb-2">إدارة الكتب والمؤلفات</h1>
                     <p className="text-muted-foreground text-sm">إضافة وتعديل بيانات الكتب والمؤلفات العلمية للشيخ.</p>
                 </div>
                 <button

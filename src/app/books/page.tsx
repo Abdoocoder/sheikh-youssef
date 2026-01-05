@@ -40,7 +40,9 @@ export default function BooksPage() {
             <Navbar />
             <main className="flex-grow py-20 bg-background">
                 <div className="container mx-auto px-4">
-                    <SectionHeading title="المؤلفات العلمية" subtitle="مجموعة من الكتب والتحقيقات العلمية للشيخ في مختلف الفنون الشرعية" />
+                    <div className="mb-12">
+                        <SectionHeading title="المؤلفات العلمية" subtitle="مجموعة من الكتب والتحقيقات العلمية للشيخ في مختلف الفنون الشرعية" />
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
                         {books.map((book, index) => (

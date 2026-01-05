@@ -19,7 +19,9 @@ export default function FatwasPage() {
             <Navbar />
             <main className="flex-grow py-20 bg-background">
                 <div className="container mx-auto px-4">
-                    <SectionHeading title="ركن الفتاوى" subtitle="إجابات شرعية مبنية على أدلة الكتاب والسنة ومنهج المذاهب المعتبرة" />
+                    <div className="mb-12">
+                        <SectionHeading title="ركن الفتاوى" subtitle="إجابات شرعية مبنية على أدلة الكتاب والسنة ومنهج المذاهب المعتبرة" />
+                    </div>
 
                     {/* Ask Question CTA */}
                     <div className="bg-primary shadow-2xl rounded-3xl p-10 mb-16 relative overflow-hidden text-white flex flex-col md:flex-row items-center justify-between gap-8">

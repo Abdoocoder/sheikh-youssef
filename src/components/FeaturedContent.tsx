@@ -34,12 +34,14 @@ const featuredLessons = [
 
 export function FeaturedContent() {
     return (
-        <section className="py-24 bg-background">
+        <section className="py-32 bg-background">
             <div className="container mx-auto px-4">
-                <SectionHeading
-                    title="أحدث الدروس العلمية"
-                    subtitle="سلاسل علمية منهجية في الفقه والتزكية والعلوم الشرعية"
-                />
+                <div className="mb-20">
+                    <SectionHeading
+                        title="أحدث الدروس العلمية"
+                        subtitle="سلاسل علمية منهجية في الفقه والتزكية والعلوم الشرعية"
+                    />
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {featuredLessons.map((lesson, index) => (

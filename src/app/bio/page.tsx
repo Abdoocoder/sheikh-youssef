@@ -9,9 +9,11 @@ export default function BioPage() {
             <Navbar />
             <main className="flex-grow py-20 bg-background">
                 <div className="container mx-auto px-4">
-                    <SectionHeading title="السيرة الذاتية" subtitle="مسيرة علمية وأكاديمية في خدمة الشريعة واللغة" />
+                    <div className="mb-16">
+                        <SectionHeading title="السيرة الذاتية" subtitle="مسيرة علمية وأكاديمية في خدمة الشريعة واللغة" />
+                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 max-w-7xl mx-auto">
                         {/* Profile Info Sidebar */}
                         <div className="lg:col-span-1 space-y-8">
                             <div className="glass p-8 rounded-3xl text-center relative overflow-hidden">
@@ -53,10 +55,10 @@ export default function BioPage() {
                         </div>
 
                         {/* Main Content Areas */}
-                        <div className="lg:col-span-2 space-y-12">
+                        <div className="lg:col-span-2 space-y-16">
                             {/* Education */}
                             <section>
-                                <h3 className="text-2xl font-serif font-bold text-primary mb-8 flex items-center gap-3">
+                                <h3 className="text-2xl font-serif font-bold text-primary mb-10 flex items-center gap-3">
                                     <GraduationCap className="h-8 w-8 text-secondary" />
                                     المسيرة التعليمية
                                 </h3>
@@ -84,7 +86,7 @@ export default function BioPage() {
 
                             {/* Career */}
                             <section>
-                                <h3 className="text-2xl font-serif font-bold text-primary mb-8 flex items-center gap-3">
+                                <h3 className="text-2xl font-serif font-bold text-primary mb-10 flex items-center gap-3">
                                     <Award className="h-8 w-8 text-secondary" />
                                     الخبرة العملية
                                 </h3>
@@ -100,9 +102,9 @@ export default function BioPage() {
                             </section>
 
                             {/* Message */}
-                            <section className="bg-primary p-12 rounded-3xl text-white relative overflow-hidden">
+                            <section className="bg-primary p-16 rounded-3xl text-white relative overflow-hidden shadow-xl">
                                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-tr-full" />
-                                <p className="text-2xl font-serif leading-relaxed italic relative z-10">
+                                <p className="text-2xl font-serif leading-loose italic relative z-10 text-center">
                                     &quot;إن العلم ليس مجرد نصوص تحفظ، بل هو نور يقذفه الله في القلب يُترجم إلى عمل وأخلاق، ومنهجنا هو الجمع بين صرامة الفقه ونقاء التزكية.&quot;
                                 </p>
                             </section>

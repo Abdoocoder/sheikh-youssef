@@ -95,10 +95,12 @@ export default function LessonsPage() {
             <Navbar />
             <main className="flex-grow py-20 bg-background">
                 <div className="container mx-auto px-4">
-                    <SectionHeading title="الدروس العلمية" subtitle="مكتبة مرئية وصوتية متكاملة لجميع الدروس والمجالس العلمية" />
+                    <div className="mb-12">
+                        <SectionHeading title="الدروس العلمية" subtitle="مكتبة مرئية وصوتية متكاملة لجميع الدروس والمجالس العلمية" />
+                    </div>
 
                     {/* Filters & Search */}
-                    <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between">
+                    <div className="flex flex-col md:flex-row gap-6 mb-16 items-center justify-between">
                         <div className="flex flex-wrap justify-center gap-3">
                             {categories.map(cat => (
                                 <button
