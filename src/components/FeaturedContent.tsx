@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/image";
-import { PlayCircle, BookOpen, Clock } from "lucide-react";
+import Image from "next/image";
+import { PlayCircle, Clock } from "lucide-react";
 import { SectionHeading } from "./Hero";
 
 const featuredLessons = [
@@ -53,10 +53,11 @@ export function FeaturedContent() {
                         >
                             <a href={lesson.url} target="_blank" rel="noopener noreferrer">
                                 <div className="relative h-48 overflow-hidden">
-                                    <img
+                                    <Image
                                         src={lesson.image}
                                         alt={lesson.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        fill
+                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
                                         <span className="px-3 py-1 bg-secondary text-secondary-foreground text-xs font-bold rounded-lg uppercase">

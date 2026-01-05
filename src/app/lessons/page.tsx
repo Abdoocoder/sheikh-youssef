@@ -3,7 +3,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SectionHeading } from "@/components/Hero";
-import { Play, Filter, Search } from "lucide-react";
+import { Play, Search } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 

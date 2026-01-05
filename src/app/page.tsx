@@ -17,7 +17,7 @@ export default function Home() {
             <div className="glass ornament-border max-w-5xl mx-auto rounded-3xl p-12 text-center">
               <h2 className="font-serif text-4xl font-bold text-primary mb-6">رسالتنا العلمية</h2>
               <p className="text-xl text-foreground/80 leading-relaxed mb-8 max-w-3xl mx-auto">
-                "نسعى لنشر نور العلم والعمل بوسطية واعتدال، مرتكزين على تراثنا الأصيل، ومنفتحين على متطلبات العصر، لتنشئة جيل علمي يجمع بين عمق الفكر وطهارة الروح."
+                &quot;نسعى لنشر نور العلم والعمل بوسطية واعتدال، مرتكزين على تراثنا الأصيل، ومنفتحين على متطلبات العصر، لتنشئة جيل علمي يجمع بين عمق الفكر وطهارة الروح.&quot;
               </p>
               <div className="flex justify-center gap-4">
                 <div className="h-0.5 w-12 bg-secondary/50 rounded-full my-auto" />

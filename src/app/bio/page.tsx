@@ -103,7 +103,7 @@ export default function BioPage() {
                             <section className="bg-primary p-12 rounded-3xl text-white relative overflow-hidden">
                                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-tr-full" />
                                 <p className="text-2xl font-serif leading-relaxed italic relative z-10">
-                                    "إن العلم ليس مجرد نصوص تحفظ، بل هو نور يقذفه الله في القلب يُترجم إلى عمل وأخلاق، ومنهجنا هو الجمع بين صرامة الفقه ونقاء التزكية."
+                                    &quot;إن العلم ليس مجرد نصوص تحفظ، بل هو نور يقذفه الله في القلب يُترجم إلى عمل وأخلاق، ومنهجنا هو الجمع بين صرامة الفقه ونقاء التزكية.&quot;
                                 </p>
                             </section>
                         </div>

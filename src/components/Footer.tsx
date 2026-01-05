@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Mail, Youtube, ExternalLink } from "lucide-react";
+import { Facebook, Mail, Youtube } from "lucide-react";
 
 export function Footer() {
     return (

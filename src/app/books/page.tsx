@@ -3,8 +3,9 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SectionHeading } from "@/components/Hero";
-import { BookOpen, Download, ShoppingBag } from "lucide-react";
+import { Download, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const books = [
     {
@@ -52,10 +53,11 @@ export default function BooksPage() {
                             >
                                 <div className="relative w-64 h-96 mb-8 perspective-1000">
                                     <div className="relative w-full h-full shadow-[20px_20px_50px_rgba(0,0,0,0.15)] rounded-r-lg rounded-l-[4px] overflow-hidden group-hover:rotate-y-[-10deg] transition-transform duration-500 origin-left border-l-4 border-primary">
-                                        <img
+                                        <Image
                                             src={book.cover}
                                             alt={book.title}
-                                            className="w-full h-full object-cover"
+                                            fill
+                                            className="object-cover"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
                                     </div>

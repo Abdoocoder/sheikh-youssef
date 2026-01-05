@@ -18,7 +18,7 @@ export const proxy = clerkMiddleware(async (auth, req) => {
         // Note: session.sessionClaims.publicMetadata is available if configured in Clerk Dashboard
         // For simplicity, we can also check the user's role if using Clerk Organizations,
         // but here we'll use publicMetadata.
-        const role = (session.sessionClaims?.metadata as any)?.role;
+        const role = (session.sessionClaims?.metadata as { role?: string })?.role;
 
         if (role !== "admin") {
             // Redirect to home if not admin
