@@ -307,6 +307,7 @@ export default function AdminBooks() {
                                     src={book.cover_url || "/assets/book-fiqh.png"}
                                     alt={book.title}
                                     fill
+                                    sizes="(max-width: 768px) 100vw, 33vw"
                                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2 sm:hidden">
