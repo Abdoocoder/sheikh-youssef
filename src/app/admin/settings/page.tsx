@@ -1,7 +1,7 @@
 "use client";
 
 import { Save, Globe, Mail, Share2, Loader2, RotateCcw } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function AdminSettings() {
@@ -17,12 +17,7 @@ export default function AdminSettings() {
         telegram_url: ""
     });
 
-    useEffect(() => {
-        fetchSettings();
-    }, []);
-
-    const fetchSettings = async () => {
-        setLoading(true);
+    const fetchSettings = useCallback(async () => {
         const { data, error } = await supabase
             .from('site_settings')
             .select('*')
@@ -39,7 +34,12 @@ export default function AdminSettings() {
             setSettings(data);
         }
         setLoading(false);
-    };
+    }, []);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchSettings();
+    }, [fetchSettings]);
 
     const handleSave = async () => {
         setSaving(true);
@@ -73,7 +73,7 @@ export default function AdminSettings() {
                 </div>
                 <div className="flex gap-3">
                     <button
-                        onClick={fetchSettings}
+                        onClick={() => { setLoading(true); fetchSettings(); }}
                         className="flex items-center gap-2 px-6 py-2.5 bg-muted text-muted-foreground rounded-xl font-bold hover:bg-muted/80 transition-all text-sm"
                     >
                         <RotateCcw className="h-4 w-4" />

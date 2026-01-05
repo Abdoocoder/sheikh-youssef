@@ -1,15 +1,25 @@
 "use client";
 
 import { Plus, Search, Edit2, Trash2, ExternalLink, Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
+
+interface Lesson {
+    id: string;
+    title: string;
+    media_url: string;
+    category: string;
+    published_at: string;
+    type: string;
+    slug: string;
+}
 
 export default function AdminLessons() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [lessons, setLessons] = useState<any[]>([]);
+    const [lessons, setLessons] = useState<Lesson[]>([]);
     const [loading, setLoading] = useState(true);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [editingLesson, setEditingLesson] = useState<any>(null);
+    const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
     const [newLesson, setNewLesson] = useState({
         title: "",
         media_url: "",
@@ -17,12 +27,7 @@ export default function AdminLessons() {
         type: "lesson"
     });
 
-    useEffect(() => {
-        fetchLessons();
-    }, []);
-
-    const fetchLessons = async () => {
-        setLoading(true);
+    const fetchLessons = useCallback(async () => {
         const { data, error } = await supabase
             .from('content')
             .select('*')
@@ -35,7 +40,12 @@ export default function AdminLessons() {
             setLessons(data || []);
         }
         setLoading(false);
-    };
+    }, []);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchLessons();
+    }, [fetchLessons]);
 
     const handleDelete = async (id: string) => {
         if (!confirm('هل أنت متأكد من حذف هذا الدرس؟')) return;

@@ -1,16 +1,26 @@
 "use client";
 
 import { BookOpen, Plus, Search, Edit2, Trash2, CheckCircle, Clock, Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 
+interface Book {
+    id: string;
+    title: string;
+    description: string;
+    cover_url: string;
+    published_year: number;
+    pdf_url: string;
+    created_at: string;
+}
+
 export default function AdminBooks() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [books, setBooks] = useState<any[]>([]);
+    const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(true);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [editingBook, setEditingBook] = useState<any>(null);
+    const [editingBook, setEditingBook] = useState<Book | null>(null);
     const [newBook, setNewBook] = useState({
         title: "",
         description: "",
@@ -19,12 +29,7 @@ export default function AdminBooks() {
         pdf_url: ""
     });
 
-    useEffect(() => {
-        fetchBooks();
-    }, []);
-
-    const fetchBooks = async () => {
-        setLoading(true);
+    const fetchBooks = useCallback(async () => {
         const { data, error } = await supabase
             .from('books')
             .select('*')
@@ -36,7 +41,12 @@ export default function AdminBooks() {
             setBooks(data || []);
         }
         setLoading(false);
-    };
+    }, []);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchBooks();
+    }, [fetchBooks]);
 
     const handleDelete = async (id: string) => {
         if (!confirm('هل أنت متأكد من حذف هذا الكتاب؟')) return;

@@ -1,22 +1,25 @@
 "use client";
 
 import { MessageSquare, Search, CheckCircle2, Clock, Reply, Trash2, Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
+
+interface Fatwa {
+    id: string;
+    type: string;
+    title: string;
+    body: string | null;
+    created_at: string;
+}
 
 export default function AdminFatwas() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [fatwas, setFatwas] = useState<any[]>([]);
+    const [fatwas, setFatwas] = useState<Fatwa[]>([]);
     const [loading, setLoading] = useState(true);
-    const [replyingTo, setReplyingTo] = useState<any>(null);
+    const [replyingTo, setReplyingTo] = useState<Fatwa | null>(null);
     const [replyBody, setReplyBody] = useState("");
 
-    useEffect(() => {
-        fetchFatwas();
-    }, []);
-
-    const fetchFatwas = async () => {
-        setLoading(true);
+    const fetchFatwas = useCallback(async () => {
         const { data, error } = await supabase
             .from('content')
             .select('*')
@@ -29,7 +32,12 @@ export default function AdminFatwas() {
             setFatwas(data || []);
         }
         setLoading(false);
-    };
+    }, []);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchFatwas();
+    }, [fetchFatwas]);
 
     const handleDelete = async (id: string) => {
         if (!confirm('هل أنت متأكد من حذف هذه الفتوى؟')) return;
