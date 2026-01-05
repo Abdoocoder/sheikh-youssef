@@ -33,9 +33,9 @@ export function Hero() {
                     <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider text-secondary uppercase bg-secondary/10 border border-secondary/20 rounded-full">
                         بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة
                     </span>
+                    <h2 className="text-secondary/80 font-serif text-xl md:text-2xl mb-4 font-medium">موقع فضيلة الشيخ</h2>
                     <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight">
-                        فضيلة الشيخ <br />
-                        <span className="text-secondary text-shadow-gold">يوسف حازم أبو غزالة</span>
+                        <span className="text-shadow-gold">يوسف حازم أبو غزالة</span>
                     </h1>
                     <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto leading-relaxed">
                         خادم العلم الشريف، المدرس بقسم الفقه الحنفي بجامعة العلوم الإسلامية العالمية، والباحث في العلوم الشرعية والتزكية.

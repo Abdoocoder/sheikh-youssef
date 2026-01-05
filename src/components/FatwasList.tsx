@@ -13,16 +13,8 @@ interface Fatwa {
     status: string;
 }
 
-const fatwas: Fatwa[] = [
-    { id: 1, question: "ما حكم السرقة لشخص يدعي أنه مضطر ولا يعلم أنها حرام؟", category: "الجنايات", status: "تمت الإجابة" },
-    { id: 2, question: "هل يجوز التأخر في إخراج زكاة المال لانتظار قريب مسافر؟", category: "العبادات / الزكاة", status: "تمت الإجابة" },
-    { id: 3, question: "ما معنى 'الشيخ المأذون' في اصطلاح السلوكيين؟", category: "التزكية", status: "تمت الإجابة" },
-    { id: 4, question: "حكم التداول في العملات الرقمية عند السادة الأحناف؟", category: "المعاملات", status: "قيد البحث" },
-    { id: 5, question: "كيف يتعامل الموظف مع هدايا المراجعين في المؤسسات الرسمية؟", category: "المعاملات / الرشوة", status: "تمت الإجابة" },
-];
-
 export function FatwasList() {
-    const [fatwaItems, setFatwaItems] = useState<Fatwa[]>(fatwas);
+    const [fatwaItems, setFatwaItems] = useState<Fatwa[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
 

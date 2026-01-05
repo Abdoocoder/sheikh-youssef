@@ -27,8 +27,8 @@ export function Navbar() {
         <div className="flex h-20 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2 space-x-reverse">
-              <span className="font-serif text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                الشيخ يوسف أبو غزالة
+              <span className="font-serif text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                موقع الشيخ يوسف أبو غزالة
               </span>
             </Link>
           </div>

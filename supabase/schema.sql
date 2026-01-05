@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS awrad (
 -- Site settings (Single row for site configuration)
 CREATE TABLE IF NOT EXISTS site_settings (
     id INTEGER PRIMARY KEY DEFAULT 1 CHECK (id = 1),
-    site_title TEXT DEFAULT 'فضيلة الشيخ يوسف حازم أبو غزالة',
+    site_title TEXT DEFAULT 'موقع فضيلة الشيخ يوسف حازم أبو غزالة',
     site_description TEXT DEFAULT 'بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة',
     contact_email TEXT DEFAULT 'contact@sheikhyoussef.com',
     contact_phone TEXT,

@@ -17,7 +17,7 @@ export async function Footer() {
                     {/* Brand Section */}
                     <div className="md:col-span-2">
                         <h3 className="font-serif text-3xl font-bold mb-6 text-secondary">
-                            {settings?.site_title || "الشيخ يوسف حازم أبو غزالة"}
+                            {settings?.site_title || "موقع فضيلة الشيخ يوسف حازم أبو غزالة"}
                         </h3>
                         <p className="text-primary-foreground/70 text-lg mb-8 max-w-md leading-relaxed">
                             {settings?.site_description || "منصة علمية تهدف إلى نشر العلم الشرعي الصحيح المتصل بالسند، متبعين منهج أهل السنة والجماعة في العلم والعمل والسلوك."}

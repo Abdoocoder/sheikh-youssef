@@ -17,35 +17,8 @@ interface Book {
     status: "available" | "soon";
 }
 
-const books: Book[] = [
-    {
-        id: 1,
-        title: "الوجيز في الفقه الحنفي",
-        description: "كتاب جامع لأهم مسائل العبادات والمعاملات على مذهب الإمام أبي حنيفة النعمان بأسلوب عصري ميسر.",
-        cover: "/assets/book-fiqh.png",
-        year: "2023",
-        status: "available"
-    },
-    {
-        id: 2,
-        title: "أنوار التزكية في شرح الوظيفة الزروقية",
-        description: "شرح تربوي وعلمي لوظيفة الإمام أحمد زروق رضي الله عنه، يتناول آداب السلوك وتزكية النفس.",
-        cover: "/assets/book-spiritual.png",
-        year: "2024",
-        status: "soon"
-    },
-    {
-        id: 3,
-        title: "المدخل إلى المصارف الإسلامية",
-        description: "دراسة تحليلية لقواعد الاقتصاد الإسلامي وتطبيقاته في البنوك الحديثة، مع مقارنة بالفقه التقليدي.",
-        cover: "/assets/book-economics.png",
-        year: "2022",
-        status: "available"
-    }
-];
-
 export function BooksList() {
-    const [bookItems, setBookItems] = useState<Book[]>(books);
+    const [bookItems, setBookItems] = useState<Book[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

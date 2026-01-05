@@ -20,84 +20,8 @@ interface Lesson {
     url: string;
 }
 
-const lessons: Lesson[] = [
-    {
-        id: "1",
-        title: "تذكرة السامع والمتكلم في أدب العالم والمتعلم",
-        category: "أدب طلب العلم",
-        duration: "سلسلة علمية",
-        date: "متجدد",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSnHQpJPR7lWBVEew85hgL8"
-    },
-    {
-        id: "2",
-        title: "كتاب تعليم المتعلّم طريق التعلّم للإمام الزرنوجي",
-        category: "أدب طلب العلم",
-        duration: "سلسلة علمیة",
-        date: "متجدد",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsStIP-IZ__dw2b-6dqm3Sly"
-    },
-    {
-        id: "3",
-        title: "شرح الأوراد الشاذلية للعلامة ابن عجيبة",
-        category: "التزكية",
-        duration: "سلسلة علمية",
-        date: "متجدد",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsS0YKk8Zg9neCnVUDSJLFNJ"
-    },
-    {
-        id: "4",
-        title: "درس الفقه - متن القدوري في الفقه الحنفي",
-        category: "الفقه",
-        duration: "سلسلة علمية",
-        date: "متجدد",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsRCchUPTaqYwc7Xfa_s5BoO"
-    },
-    {
-        id: "5",
-        title: "خطب الجمعة لفضيلة الشيخ يوسف أبو غزالة",
-        category: "خطب",
-        duration: "متنوع",
-        date: "أسبوعي",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsQ9KUAfEDQRquNWU61_H4ge"
-    },
-    {
-        id: "6",
-        title: "كتاب 'حول تفسير سورة الحجرات' للشيخ عبدالله سراج الدين",
-        category: "التفسير",
-        duration: "سلسلة علمية",
-        date: "مكتمل",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSD9CKELMYwHDIULQa7ldHp"
-    },
-    {
-        id: "7",
-        title: "كتاب من أدب الإسلام للشيخ عبد الفتاح أبو غدة",
-        category: "أدب طلب العلم",
-        duration: "سلسلة علمية",
-        date: "متجدد",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSR9rikjj0oYj7tM8OHPGqA"
-    },
-    {
-        id: "8",
-        title: "فقه الصوم - fقه حنفي",
-        category: "الفقه",
-        duration: "سلسلة علمية",
-        date: "مكتمل",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSyJiBGdfL-FlW2AfgnwTg2"
-    },
-    {
-        id: "9",
-        title: "درس التزكية (الحكم الغوثية لأبي مدين الغوث)",
-        category: "التزكية",
-        duration: "سلسلة علمية",
-        date: "متجدد",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsQpwAahYHmNT8fB7Cm3B0A3"
-    },
-];
-
-
 export function LessonsList() {
-    const [lessonItems, setLessonItems] = useState<Lesson[]>(lessons);
+    const [lessonItems, setLessonItems] = useState<Lesson[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("الكل");
     const [searchTerm, setSearchTerm] = useState("");

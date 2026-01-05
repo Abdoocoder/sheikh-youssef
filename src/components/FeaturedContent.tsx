@@ -20,36 +20,8 @@ interface LessonItem {
     url: string;
 }
 
-const featuredLessons = [
-    {
-        title: "شرح الأوراد الشاذلية للعلامة ابن عجيبة",
-        category: "التزكية",
-        date: "متجدد",
-        image: "/assets/lesson-general.png",
-        id: "lesson-awrad",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsS0YKk8Zg9neCnVUDSJLFNJ"
-    },
-    {
-        title: "درس الفقه - متن القدوري في الفقه الحنفي",
-        category: "الفقه",
-        date: "متجدد",
-        image: "/assets/book-fiqh.png",
-        id: "lesson-quduri",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsRCchUPTaqYwc7Xfa_s5BoO"
-    },
-    {
-        title: "تذكرة السامع والمتكلم في أدب العالم والمتعلم",
-        category: "أدب طلب العلم",
-        date: "متجدد",
-        image: "/assets/lesson-general.png",
-        id: "lesson-tadkira",
-        url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSnHQpJPR7lWBVEew85hgL8"
-    }
-];
-
-
 export function FeaturedContent() {
-    const [lessons, setLessons] = useState<LessonItem[]>(featuredLessons);
+    const [lessons, setLessons] = useState<LessonItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedVideo, setSelectedVideo] = useState<{ id: string, url: string; title: string } | null>(null);
 
