@@ -3,10 +3,16 @@ import { NextResponse } from "next/server";
 
 // Define which routes are admin-only
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+const isDebugRoute = createRouteMatcher(["/admin/debug(.*)"]);
 
 export const proxy = clerkMiddleware(async (auth, req) => {
     // If the route is an admin route
     if (isAdminRoute(req)) {
+        // Exempt debug route from redirection so user can troubleshoot
+        if (isDebugRoute(req)) {
+            return;
+        }
+
         const session = await auth();
 
         // 1. Check if user is signed in
@@ -15,24 +21,15 @@ export const proxy = clerkMiddleware(async (auth, req) => {
         }
 
         // 2. Check for 'admin' role in publicMetadata
-        // Note: session.sessionClaims.publicMetadata is available if configured in Clerk Dashboard
-        // For simplicity, we can also check the user's role if using Clerk Organizations,
-        // but here we'll use publicMetadata.
         const claims = session.sessionClaims;
         const role = (claims?.metadata as { role?: string })?.role;
 
-        console.log("--- Admin Access Debug ---");
-        console.log("User ID:", session.userId);
-        console.log("Session Claims Metadata:", claims?.metadata);
-        console.log("Detected Role:", role);
-
         if (role !== "admin") {
-            console.log("Access Denied: Redirecting to home");
-            // Redirect to home if not admin
-            const url = new URL("/", req.url);
+            // Redirect to debug page if they are logged in but not admin
+            // This helps them see why they are not authorized
+            const url = new URL("/admin/debug", req.url);
             return NextResponse.redirect(url);
         }
-        console.log("Access Granted: Welcome Admin");
     }
 });
 
