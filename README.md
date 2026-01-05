@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# موقع فضيلة الشيخ يوسف حازم أبو غزالة
 
-## Getting Started
+موقع إلكتروني علمي متكامل مخصص لفضيلة الشيخ يوسف حازم أبو غزالة، يهدف إلى نشر المحتوى العلمي والشرعي بأسلوب عصري وفاخر.
 
-First, run the development server:
+## 🌟 المميزات
+- **تصميم إسلامي عصري**: يعتمد على ثيم "الزمرد المذهب" (Golden Emerald) المريح للعين.
+- **مكتبة الدروس**: عرض منظم لسلاسل الدروس العلمية المرتبطة بقناة يوتيوب.
+* **ركن الفتاوى**: أرشيف للأسئلة والأجوبة الشرعية مع نظام بحث سريع.
+* **المؤلفات**: عرض تفصيلي للكتب والتحقيقات العلمية مع روابط التحميل والشراء.
+- **لوحة تحكم (Admin)**: واجهة مخصصة لإدارة المحتوى (دروس، فتاوى، كتب) محمية بنظام Clerk.
+- **سرعة فائقة**: تحسين الصور والأداء باستخدام أحدث تقنيات Next.js 16.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠 التقنيات المستخدمة
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Authentication**: [Clerk](https://clerk.com/)
+- **Database**: [Supabase (PostgreSQL)](https://supabase.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Monitoring**: [Sentry](https://sentry.io/)
+
+## 🚀 البدء بالعمل
+
+### 1. المتطلبات
+- Node.js 18+ 
+- حساب على Clerk و Supabase و Sentry.
+
+### 2. إعداد متغيرات البيئة
+قم بإنشاء ملف `.env.local` وأضف المفاتيح التالية:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+CLERK_SECRET_KEY=...
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. التثبيت والتشغيل
+```bash
+# تثبيت المكتبات
+npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# تشغيل السيرفر المحلي
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 هيكلة المشروع
+- `src/app`: تحتوي على الصفحات والموجهات (App Router).
+- `src/components`: المكونات البرمجية القابلة لإعادة الاستخدام (Navbar, Footer, Hero...).
+- `src/proxy.ts`: نظام الحماية والوساطة البرمجية (Next.js 16 Proxy).
+- `supabase/schema.sql`: هيكلية قاعدة البيانات.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 الترخيص
+حقوق الطبع والنشر محفوظة لأسرة الشيخ يوسف حازم أبو غزالة © 2026.
+تطوير وإشراف: فريق التحول الرقمي.
