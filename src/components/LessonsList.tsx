@@ -10,6 +10,7 @@ import { VideoModal } from "./VideoModal";
 import Image from "next/image";
 import { getYouTubeId } from "@/lib/youtube";
 import { LessonSkeleton } from "./Skeleton";
+import { ShareButtons } from "./ShareButtons";
 
 interface Lesson {
     id: string;
@@ -177,10 +178,13 @@ export function LessonsList() {
                                                 <span className="text-xs font-medium">{lesson.date}</span>
                                             </div>
 
-                                            <button className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-all">
-                                                <span>ابدأ التعلم</span>
-                                                <span className="transform translate-y-[2px]">←</span>
-                                            </button>
+                                            <div className="flex items-center gap-4">
+                                                <ShareButtons title={lesson.title} url={lesson.url} className="scale-90" />
+                                                <button className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-all">
+                                                    <span>ابدأ التعلم</span>
+                                                    <span className="transform translate-y-[2px]">←</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>

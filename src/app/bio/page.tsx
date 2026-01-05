@@ -24,6 +24,7 @@ export default function BioPage() {
                                         src="/assets/sheikh-youssef.png"
                                         alt="الشيخ يوسف حازم أبو غزالة"
                                         fill
+                                        sizes="(max-width: 768px) 128px, 128px"
                                         className="object-cover"
                                     />
                                 </div>

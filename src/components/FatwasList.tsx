@@ -6,17 +6,25 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { FatwaSkeleton } from "./Skeleton";
 
+import { FatwaRequestForm } from "./FatwaRequestForm";
+import { ShareButtons } from "./ShareButtons";
+import Link from "next/link";
+
 interface Fatwa {
     id: string | number;
     question: string;
     category: string;
     status: string;
+    answer?: string;
+    slug?: string;
 }
 
 export function FatwasList() {
     const [fatwaItems, setFatwaItems] = useState<Fatwa[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
+    const [isAskModalOpen, setIsAskModalOpen] = useState(false);
+    const [expandedId, setExpandedId] = useState<string | number | null>(null);
 
     useEffect(() => {
         const fetchFatwas = async () => {
@@ -29,11 +37,13 @@ export function FatwasList() {
             if (error) {
                 console.error('Error fetching fatwas:', error);
             } else if (data && data.length > 0) {
-                setFatwaItems((data as { id: string, title: string, category: string, body: string | null }[]).map(item => ({
+                setFatwaItems((data as { id: string, title: string, category: string, body: string | null, slug: string }[]).map(item => ({
                     id: item.id,
                     question: item.title,
                     category: item.category,
-                    status: item.body ? "تمت الإجابة" : "قيد البحث"
+                    status: item.body ? "تمت الإجابة" : "قيد البحث",
+                    answer: item.body || undefined,
+                    slug: item.slug
                 })));
             }
             setLoading(false);
@@ -41,6 +51,10 @@ export function FatwasList() {
 
         fetchFatwas();
     }, []);
+
+    const toggleExpand = (id: string | number) => {
+        setExpandedId(expandedId === id ? null : id);
+    };
 
     if (loading) {
         return (
@@ -70,7 +84,10 @@ export function FatwasList() {
                         <h3 className="text-3xl font-serif font-bold mb-4">هل لديك سؤال شرعي؟</h3>
                         <p className="text-primary-foreground/70 max-w-lg text-lg">يمكنك إرسال سؤالك مباشرة للشيخ، وسيتم الرد عليك في أقرب وقت ونشر الإجابة لأهميتها.</p>
                     </div>
-                    <button className="relative z-10 px-10 py-4 bg-secondary text-secondary-foreground font-bold rounded-2xl hover:scale-105 transition-transform flex items-center gap-3">
+                    <button
+                        onClick={() => setIsAskModalOpen(true)}
+                        className="relative z-10 px-10 py-4 bg-secondary text-secondary-foreground font-bold rounded-2xl hover:scale-105 transition-transform flex items-center gap-3"
+                    >
                         <MessageCircle className="h-6 w-6" />
                         أرسل سؤالك الآن
                     </button>
@@ -94,31 +111,54 @@ export function FatwasList() {
                             f.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             f.category.toLowerCase().includes(searchTerm.toLowerCase())
                         ).map(fatwa => (
-                            <div key={fatwa.id} className="glass p-6 rounded-2xl hover:border-secondary/30 transition-all group flex items-start justify-between gap-4 cursor-pointer">
-                                <div className="flex items-start gap-4 text-right">
-                                    <div className="bg-primary/5 p-3 rounded-xl group-hover:bg-primary/10 transition-colors">
-                                        <HelpCircle className="h-6 w-6 text-primary" />
+                            <div
+                                key={fatwa.id}
+                                onClick={() => toggleExpand(fatwa.id)}
+                                className={`glass p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col gap-4 ${expandedId === fatwa.id ? "border-secondary/50 bg-secondary/5" : "border-white/5 hover:border-secondary/30"}`}
+                            >
+                                <div className="flex items-start justify-between gap-4 w-full">
+                                    <div className="flex items-start gap-4 text-right">
+                                        <div className={`p-3 rounded-xl transition-colors ${expandedId === fatwa.id ? "bg-secondary text-secondary-foreground" : "bg-primary/5 text-primary group-hover:bg-primary/10"}`}>
+                                            <HelpCircle className="h-6 w-6" />
+                                        </div>
+                                        <div>
+                                            <span className="text-secondary font-bold text-xs bg-secondary/10 px-2 py-0.5 rounded-md mb-2 inline-block">
+                                                {fatwa.category}
+                                            </span>
+                                            <h4 className="text-xl font-bold text-primary transition-colors leading-relaxed">
+                                                {fatwa.question}
+                                            </h4>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span className="text-secondary font-bold text-xs bg-secondary/10 px-2 py-0.5 rounded-md mb-2 inline-block">
-                                            {fatwa.category}
+                                    <div className="flex flex-col items-end gap-3 shrink-0">
+                                        <span className={`text-xs px-2 py-1 rounded-full ${fatwa.status === "تمت الإجابة" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700"}`}>
+                                            {fatwa.status}
                                         </span>
-                                        <h4 className="text-xl font-bold text-primary group-hover:text-secondary transition-colors leading-relaxed">
-                                            {fatwa.question}
-                                        </h4>
+                                        <ChevronRight className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${expandedId === fatwa.id ? "rotate-90 text-secondary" : "group-hover:text-secondary"}`} />
                                     </div>
                                 </div>
-                                <div className="flex flex-col items-end gap-3 shrink-0">
-                                    <span className={`text-xs px-2 py-1 rounded-full ${fatwa.status === "تمت الإجابة" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700"}`}>
-                                        {fatwa.status}
-                                    </span>
-                                    <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-secondary transition-all" />
-                                </div>
+
+                                {/* Expanded Answer Area */}
+                                {expandedId === fatwa.id && fatwa.answer && (
+                                    <div className="mt-4 pt-6 border-t border-primary/10 animate-in slide-in-from-top-2 duration-300 cursor-default" onClick={(e) => e.stopPropagation()}>
+                                        <div className="prose prose-lg dark:prose-invert max-w-none text-right font-light leading-loose text-foreground/90 mb-6">
+                                            {fatwa.answer}
+                                        </div>
+                                        <div className="flex items-center justify-between border-t border-primary/5 pt-4">
+                                            <ShareButtons title={fatwa.question} url={`/fatwas/${fatwa.slug}`} />
+                                            <Link href={`/fatwas/${fatwa.slug}`} className="text-xs text-primary/40 hover:text-secondary transition-colors">
+                                                رابط دائم
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+
+            <FatwaRequestForm isOpen={isAskModalOpen} onClose={() => setIsAskModalOpen(false)} />
         </main>
-    )
+    );
 }

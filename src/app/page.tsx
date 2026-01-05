@@ -28,6 +28,7 @@ export default function Home() {
                       src="/assets/sheikh-youssef.png"
                       alt="الشيخ يوسف"
                       fill
+                      sizes="48px"
                       className="object-cover"
                     />
                   </div>

@@ -87,41 +87,25 @@ CREATE TABLE IF NOT EXISTS site_settings (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Insert default settings row
-INSERT INTO site_settings (id) VALUES (1) ON CONFLICT DO NOTHING;
+-- Fatwa Questions (Incoming requests)
+CREATE TABLE IF NOT EXISTS fatwa_questions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    question TEXT NOT NULL,
+    details TEXT,
+    asker_name TEXT,
+    asker_email TEXT,
+    is_private BOOLEAN DEFAULT FALSE,
+    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'answered', 'rejected')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 
--- Indexes for performance
-CREATE INDEX IF NOT EXISTS idx_content_type ON content(type);
-CREATE INDEX IF NOT EXISTS idx_content_category ON content(category_id);
-CREATE INDEX IF NOT EXISTS idx_content_published_at ON content(published_at DESC);
+-- RLS for fatwa_questions
+ALTER TABLE fatwa_questions ENABLE ROW LEVEL SECURITY;
 
--- Enable RLS for main tables
-ALTER TABLE content ENABLE ROW LEVEL SECURITY;
-ALTER TABLE books ENABLE ROW LEVEL SECURITY;
-ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
+-- Allow public to INSERT questions (Ask)
+DROP POLICY IF EXISTS "Allow public insert on fatwa_questions" ON fatwa_questions;
+CREATE POLICY "Allow public insert on fatwa_questions" ON fatwa_questions FOR INSERT WITH CHECK (true);
 
--- Public READ policies
-DROP POLICY IF EXISTS "Allow public read access on content" ON content;
-CREATE POLICY "Allow public read access on content" ON content FOR SELECT USING (true);
-
-
-DROP POLICY IF EXISTS "Allow public read access on books" ON books;
-CREATE POLICY "Allow public read access on books" ON books FOR SELECT USING (true);
-
--- RLS for playlist_items
-ALTER TABLE playlist_items ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS "Allow public read access on playlist_items" ON playlist_items;
-CREATE POLICY "Allow public read access on playlist_items" ON playlist_items FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Allow public read access on site_settings" ON site_settings;
-CREATE POLICY "Allow public read access on site_settings" ON site_settings FOR SELECT USING (true);
-
--- Authenticated (Admin) FULL access policies
-DROP POLICY IF EXISTS "Allow all actions on content for authenticated" ON content;
-CREATE POLICY "Allow all actions on content for authenticated" ON content FOR ALL USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Allow all actions on books for authenticated" ON books;
-CREATE POLICY "Allow all actions on books for authenticated" ON books FOR ALL USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Allow all actions on site_settings for authenticated" ON site_settings;
-CREATE POLICY "Allow all actions on site_settings for authenticated" ON site_settings FOR ALL USING (true) WITH CHECK (true);
+-- Allow authenticated users (Admins) to READ/UPDATE/DELETE
+DROP POLICY IF EXISTS "Allow authenticated full access on fatwa_questions" ON fatwa_questions;
+CREATE POLICY "Allow authenticated full access on fatwa_questions" ON fatwa_questions FOR ALL USING (auth.role() = 'authenticated');

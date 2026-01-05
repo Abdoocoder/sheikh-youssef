@@ -75,6 +75,7 @@ export function Hero() {
                             src="/assets/sheikh-youssef.png"
                             alt="الشيخ يوسف حازم أبو غزالة"
                             fill
+                            sizes="(max-width: 768px) 256px, 320px"
                             className="object-cover object-top hover:scale-110 transition-transform duration-700"
                             priority
                         />
