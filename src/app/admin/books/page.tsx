@@ -304,11 +304,11 @@ export default function AdminBooks() {
                         <div key={book.id} className="bg-card p-5 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all group flex flex-col sm:flex-row gap-6">
                             <div className="relative w-full sm:w-32 h-44 shrink-0 rounded-lg overflow-hidden shadow-md">
                                 <Image
-                                    src={book.cover_url || "/assets/book-fiqh.png"}
+                                    src={(book.cover_url && book.cover_url !== '/assets/book-cover-placeholder.png') ? book.cover_url : "/assets/book-fiqh.png"}
                                     alt={book.title}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, 33vw"
-                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                    sizes="128px"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2 sm:hidden">
                                     <span className="text-[10px] text-white font-bold">{book.pdf_url ? 'متوفر' : 'قريباً'}</span>

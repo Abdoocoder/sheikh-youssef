@@ -4,6 +4,9 @@ import { SectionHeading } from "@/components/Hero";
 import { Download, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { Loader2 } from "lucide-react";
 
 const books = [
     {
@@ -33,6 +36,42 @@ const books = [
 ];
 
 export function BooksList() {
+    const [bookItems, setBookItems] = useState<any[]>(books);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchBooks = async () => {
+            const { data, error } = await supabase
+                .from('books')
+                .select('*')
+                .order('published_year', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching books:', error);
+            } else if (data && data.length > 0) {
+                setBookItems(data.map(book => ({
+                    id: book.id,
+                    title: book.title,
+                    description: book.description,
+                    cover: book.cover_url || "/assets/book-fiqh.png",
+                    year: book.published_year.toString(),
+                    status: book.pdf_url ? "available" : "soon"
+                })));
+            }
+            setLoading(false);
+        };
+
+        fetchBooks();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="py-20 text-center">
+                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
+                <p className="text-muted-foreground font-serif">جاري تحميل المكتبة...</p>
+            </div>
+        );
+    }
     return (
         <main className="flex-grow py-20 bg-background">
             <div className="container mx-auto px-4">
@@ -41,7 +80,7 @@ export function BooksList() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
-                    {books.map((book, index) => (
+                    {bookItems.map((book, index) => (
                         <motion.div
                             key={book.id}
                             initial={{ opacity: 0, y: 30 }}

@@ -1,7 +1,9 @@
 "use client";
 
 import { SectionHeading } from "@/components/Hero";
-import { Search, MessageCircle, ChevronRight, HelpCircle } from "lucide-react";
+import { Search, MessageCircle, ChevronRight, HelpCircle, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 const fatwas = [
     { id: 1, question: "ما حكم السرقة لشخص يدعي أنه مضطر ولا يعلم أنها حرام؟", category: "الجنايات", status: "تمت الإجابة" },
@@ -12,6 +14,41 @@ const fatwas = [
 ];
 
 export function FatwasList() {
+    const [fatwaItems, setFatwaItems] = useState<any[]>(fatwas);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchFatwas = async () => {
+            const { data, error } = await supabase
+                .from('content')
+                .select('*')
+                .eq('type', 'fatwa')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching fatwas:', error);
+            } else if (data && data.length > 0) {
+                setFatwaItems(data.map(item => ({
+                    id: item.id,
+                    question: item.title,
+                    category: item.category,
+                    status: item.body ? "تمت الإجابة" : "قيد البحث"
+                })));
+            }
+            setLoading(false);
+        };
+
+        fetchFatwas();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="py-20 text-center">
+                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
+                <p className="text-muted-foreground font-serif">جاري تحميل الفتاوى...</p>
+            </div>
+        );
+    }
     return (
         <main className="flex-grow py-20 bg-background">
             <div className="container mx-auto px-4">
@@ -44,7 +81,7 @@ export function FatwasList() {
                     </div>
 
                     <div className="space-y-4">
-                        {fatwas.map(fatwa => (
+                        {fatwaItems.map(fatwa => (
                             <div key={fatwa.id} className="glass p-6 rounded-2xl hover:border-secondary/30 transition-all group flex items-start justify-between gap-4 cursor-pointer">
                                 <div className="flex items-start gap-4 text-right">
                                     <div className="bg-primary/5 p-3 rounded-xl group-hover:bg-primary/10 transition-colors">

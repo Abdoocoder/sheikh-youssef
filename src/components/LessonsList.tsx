@@ -4,6 +4,9 @@ import { SectionHeading } from "@/components/Hero";
 import { Play, Search } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { supabase } from "@/lib/supabase";
+import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 const lessons = [
     {
@@ -81,12 +84,51 @@ const lessons = [
 ];
 
 export function LessonsList() {
+    const [lessonItems, setLessonItems] = useState<any[]>(lessons);
+    const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("الكل");
-    const categories = ["الكل", "الفقه", "التزكية", "الأصول", "التربية", "أذكار"];
+    const categories = ["الكل", "الفقه", "التزكية", "الأصول", "التربية", "أذكار", "خطب", "التفسير", "أدب طلب العلم"];
+
+    useEffect(() => {
+        const fetchLessons = async () => {
+            let query = supabase
+                .from('content')
+                .select('*')
+                .eq('type', 'lesson')
+                .order('published_at', { ascending: false });
+
+            const { data, error } = await query;
+
+            if (error) {
+                console.error('Error fetching lessons:', error);
+            } else if (data && data.length > 0) {
+                setLessonItems(data.map(item => ({
+                    id: item.id,
+                    title: item.title,
+                    category: item.category,
+                    duration: "سلسلة علمية",
+                    date: new Date(item.published_at).toLocaleDateString('ar-EG'),
+                    url: item.media_url
+                })));
+            }
+            setLoading(false);
+        };
+
+        fetchLessons();
+    }, []);
 
     const filteredLessons = selectedCategory === "الكل"
-        ? lessons
-        : lessons.filter(l => l.category === selectedCategory);
+        ? lessonItems
+        : lessonItems.filter(l => l.category === selectedCategory);
+
+    if (loading) {
+        return (
+            <div className="py-20 text-center">
+                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
+                <p className="text-muted-foreground font-serif">جاري تحميل الدروس...</p>
+            </div>
+        );
+    }
 
     return (
         <main className="flex-grow py-20 bg-background">

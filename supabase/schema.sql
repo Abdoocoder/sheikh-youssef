@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS content (
 -- Records for various books
 CREATE TABLE IF NOT EXISTS books (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    title TEXT NOT NULL,
+    title TEXT UNIQUE NOT NULL,
     description TEXT,
     cover_url TEXT,
     pdf_url TEXT,
@@ -87,13 +87,21 @@ ALTER TABLE books ENABLE ROW LEVEL SECURITY;
 ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 
 -- Public READ policies
+DROP POLICY IF EXISTS "Allow public read access on content" ON content;
 CREATE POLICY "Allow public read access on content" ON content FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow public read access on books" ON books;
 CREATE POLICY "Allow public read access on books" ON books FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow public read access on site_settings" ON site_settings;
 CREATE POLICY "Allow public read access on site_settings" ON site_settings FOR SELECT USING (true);
 
 -- Authenticated (Admin) FULL access policies
--- Note: Since we use Clerk for auth in the frontend, these policies allow the server-side/client-side 
--- calls to proceed. For production, consider using Supabase Auth for more granular control.
+DROP POLICY IF EXISTS "Allow all actions on content for authenticated" ON content;
 CREATE POLICY "Allow all actions on content for authenticated" ON content FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow all actions on books for authenticated" ON books;
 CREATE POLICY "Allow all actions on books for authenticated" ON books FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow all actions on site_settings for authenticated" ON site_settings;
 CREATE POLICY "Allow all actions on site_settings for authenticated" ON site_settings FOR ALL USING (true) WITH CHECK (true);
