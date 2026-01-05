@@ -5,6 +5,17 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 
+interface DashboardFatwa {
+    id: string;
+    title: string;
+}
+
+interface DashboardLesson {
+    id: string;
+    title: string;
+    published_at: string;
+}
+
 export default function AdminDashboard() {
     const [counts, setCounts] = useState({
         lessons: 0,
@@ -12,8 +23,8 @@ export default function AdminDashboard() {
         books: 0,
         visitors: "2.4k"
     });
-    const [recentFatwas, setRecentFatwas] = useState<any[]>([]);
-    const [recentLessons, setRecentLessons] = useState<any[]>([]);
+    const [recentFatwas, setRecentFatwas] = useState<DashboardFatwa[]>([]);
+    const [recentLessons, setRecentLessons] = useState<DashboardLesson[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionHeading } from "@/components/Hero";
-import { Play, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
@@ -9,10 +9,20 @@ import { useEffect } from "react";
 import { Loader2, Calendar, Clock, PlayCircle } from "lucide-react";
 import { VideoModal } from "./VideoModal";
 import Image from "next/image";
+import { getYouTubeId } from "@/lib/youtube";
 
-const lessons = [
+interface Lesson {
+    id: string;
+    title: string;
+    category: string;
+    duration: string;
+    date: string;
+    url: string;
+}
+
+const lessons: Lesson[] = [
     {
-        id: 1,
+        id: "1",
         title: "تذكرة السامع والمتكلم في أدب العالم والمتعلم",
         category: "أدب طلب العلم",
         duration: "سلسلة علمية",
@@ -20,7 +30,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSnHQpJPR7lWBVEew85hgL8"
     },
     {
-        id: 2,
+        id: "2",
         title: "كتاب تعليم المتعلّم طريق التعلّم للإمام الزرنوجي",
         category: "أدب طلب العلم",
         duration: "سلسلة علمیة",
@@ -28,7 +38,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsStIP-IZ__dw2b-6dqm3Sly"
     },
     {
-        id: 3,
+        id: "3",
         title: "شرح الأوراد الشاذلية للعلامة ابن عجيبة",
         category: "التزكية",
         duration: "سلسلة علمية",
@@ -36,7 +46,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsS0YKk8Zg9neCnVUDSJLFNJ"
     },
     {
-        id: 4,
+        id: "4",
         title: "درس الفقه - متن القدوري في الفقه الحنفي",
         category: "الفقه",
         duration: "سلسلة علمية",
@@ -44,7 +54,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsRCchUPTaqYwc7Xfa_s5BoO"
     },
     {
-        id: 5,
+        id: "5",
         title: "خطب الجمعة لفضيلة الشيخ يوسف أبو غزالة",
         category: "خطب",
         duration: "متنوع",
@@ -52,7 +62,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsQ9KUAfEDQRquNWU61_H4ge"
     },
     {
-        id: 6,
+        id: "6",
         title: "كتاب 'حول تفسير سورة الحجرات' للشيخ عبدالله سراج الدين",
         category: "التفسير",
         duration: "سلسلة علمية",
@@ -60,7 +70,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSD9CKELMYwHDIULQa7ldHp"
     },
     {
-        id: 7,
+        id: "7",
         title: "كتاب من أدب الإسلام للشيخ عبد الفتاح أبو غدة",
         category: "أدب طلب العلم",
         duration: "سلسلة علمية",
@@ -68,7 +78,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSR9rikjj0oYj7tM8OHPGqA"
     },
     {
-        id: 8,
+        id: "8",
         title: "فقه الصوم - fقه حنفي",
         category: "الفقه",
         duration: "سلسلة علمية",
@@ -76,7 +86,7 @@ const lessons = [
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSyJiBGdfL-FlW2AfgnwTg2"
     },
     {
-        id: 9,
+        id: "9",
         title: "درس التزكية (الحكم الغوثية لأبي مدين الغوث)",
         category: "التزكية",
         duration: "سلسلة علمية",
@@ -85,22 +95,17 @@ const lessons = [
     },
 ];
 
-const getYouTubeId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url?.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-};
 
 export function LessonsList() {
-    const [lessonItems, setLessonItems] = useState<any[]>(lessons);
+    const [lessonItems, setLessonItems] = useState<Lesson[]>(lessons);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("الكل");
-    const [selectedVideo, setSelectedVideo] = useState<{ url: string; title: string } | null>(null);
+    const [selectedVideo, setSelectedVideo] = useState<{ id: string; url: string; title: string } | null>(null);
     const categories = ["الكل", "الفقه", "التزكية", "الأصول", "التربية", "أذكار", "خطب", "التفسير", "أدب طلب العلم"];
 
     useEffect(() => {
         const fetchLessons = async () => {
-            let query = supabase
+            const query = supabase
                 .from('content')
                 .select('*')
                 .eq('type', 'lesson')
@@ -111,8 +116,8 @@ export function LessonsList() {
             if (error) {
                 console.error('Error fetching lessons:', error);
             } else if (data && data.length > 0) {
-                setLessonItems(data.map(item => ({
-                    id: item.id,
+                setLessonItems((data as { id: string | number, title: string, category: string, published_at: string, media_url: string }[]).map((item) => ({
+                    id: String(item.id),
                     title: item.title,
                     category: item.category,
                     duration: "سلسلة علمية",
@@ -188,7 +193,7 @@ export function LessonsList() {
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.5, delay: index * 0.05 }}
                                     className="group relative bg-card/40 backdrop-blur-xl border border-primary/10 rounded-[2.5rem] overflow-hidden hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] hover:border-secondary/30 transition-all duration-700 cursor-pointer"
-                                    onClick={() => setSelectedVideo({ url: lesson.url, title: lesson.title })}
+                                    onClick={() => setSelectedVideo({ id: lesson.id, url: lesson.url, title: lesson.title })}
                                 >
                                     {/* Image Container */}
                                     <div className="relative h-64 overflow-hidden">
@@ -253,6 +258,7 @@ export function LessonsList() {
                     onClose={() => setSelectedVideo(null)}
                     videoUrl={selectedVideo?.url || ""}
                     title={selectedVideo?.title || ""}
+                    lessonId={selectedVideo?.id}
                 />
             </div>
         </main>

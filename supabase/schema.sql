@@ -27,6 +27,20 @@ CREATE TABLE IF NOT EXISTS content (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Playlist Items (for series)
+CREATE TABLE IF NOT EXISTS playlist_items (
+    id SERIAL PRIMARY KEY,
+    content_id UUID REFERENCES content(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    video_id TEXT NOT NULL, -- YouTube Video ID
+    position INTEGER DEFAULT 0, -- Order in the series
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(content_id, position)
+);
+
+CREATE INDEX IF NOT EXISTS idx_playlist_items_content ON playlist_items(content_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_playlist_items_unique_pos ON playlist_items(content_id, position);
+
 -- Records for various books
 CREATE TABLE IF NOT EXISTS books (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -90,8 +104,14 @@ ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow public read access on content" ON content;
 CREATE POLICY "Allow public read access on content" ON content FOR SELECT USING (true);
 
+
 DROP POLICY IF EXISTS "Allow public read access on books" ON books;
 CREATE POLICY "Allow public read access on books" ON books FOR SELECT USING (true);
+
+-- RLS for playlist_items
+ALTER TABLE playlist_items ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow public read access on playlist_items" ON playlist_items;
+CREATE POLICY "Allow public read access on playlist_items" ON playlist_items FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Allow public read access on site_settings" ON site_settings;
 CREATE POLICY "Allow public read access on site_settings" ON site_settings FOR SELECT USING (true);

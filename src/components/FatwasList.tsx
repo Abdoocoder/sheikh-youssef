@@ -5,7 +5,14 @@ import { Search, MessageCircle, ChevronRight, HelpCircle, Loader2 } from "lucide
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
-const fatwas = [
+interface Fatwa {
+    id: string | number;
+    question: string;
+    category: string;
+    status: string;
+}
+
+const fatwas: Fatwa[] = [
     { id: 1, question: "ما حكم السرقة لشخص يدعي أنه مضطر ولا يعلم أنها حرام؟", category: "الجنايات", status: "تمت الإجابة" },
     { id: 2, question: "هل يجوز التأخر في إخراج زكاة المال لانتظار قريب مسافر؟", category: "العبادات / الزكاة", status: "تمت الإجابة" },
     { id: 3, question: "ما معنى 'الشيخ المأذون' في اصطلاح السلوكيين؟", category: "التزكية", status: "تمت الإجابة" },
@@ -14,7 +21,7 @@ const fatwas = [
 ];
 
 export function FatwasList() {
-    const [fatwaItems, setFatwaItems] = useState<any[]>(fatwas);
+    const [fatwaItems, setFatwaItems] = useState<Fatwa[]>(fatwas);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,7 +35,7 @@ export function FatwasList() {
             if (error) {
                 console.error('Error fetching fatwas:', error);
             } else if (data && data.length > 0) {
-                setFatwaItems(data.map(item => ({
+                setFatwaItems((data as { id: string, title: string, category: string, body: string | null }[]).map(item => ({
                     id: item.id,
                     question: item.title,
                     category: item.category,

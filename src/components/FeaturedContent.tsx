@@ -8,13 +8,15 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { VideoModal } from "./VideoModal";
 import Link from "next/link";
+import { getYouTubeId } from "@/lib/youtube";
 
-interface Lesson {
+interface LessonItem {
     id: string;
     title: string;
-    media_url: string;
     category: string;
-    published_at: string;
+    date: string;
+    image: string;
+    url: string;
 }
 
 const featuredLessons = [
@@ -44,16 +46,11 @@ const featuredLessons = [
     }
 ];
 
-const getYouTubeId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url?.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-};
 
 export function FeaturedContent() {
-    const [lessons, setLessons] = useState<any[]>(featuredLessons);
+    const [lessons, setLessons] = useState<LessonItem[]>(featuredLessons);
     const [loading, setLoading] = useState(true);
-    const [selectedVideo, setSelectedVideo] = useState<{ url: string; title: string } | null>(null);
+    const [selectedVideo, setSelectedVideo] = useState<{ id: string, url: string; title: string } | null>(null);
 
     useEffect(() => {
         const fetchLessons = async () => {
@@ -67,7 +64,7 @@ export function FeaturedContent() {
             if (error) {
                 console.error('Error fetching featured lessons:', error);
             } else if (data && data.length > 0) {
-                setLessons(data.map(item => ({
+                setLessons((data as { id: string, title: string, category: string, published_at: string, media_url: string }[]).map((item) => ({
                     id: item.id,
                     title: item.title,
                     category: item.category,
@@ -113,7 +110,7 @@ export function FeaturedContent() {
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
                                 className="group relative bg-card/40 backdrop-blur-xl border border-primary/10 rounded-[2rem] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer text-right"
-                                onClick={() => setSelectedVideo({ url: lesson.url, title: lesson.title })}
+                                onClick={() => setSelectedVideo({ id: lesson.id, url: lesson.url, title: lesson.title })}
                             >
                                 <div className="relative h-56 overflow-hidden">
                                     <Image
@@ -167,6 +164,7 @@ export function FeaturedContent() {
                     onClose={() => setSelectedVideo(null)}
                     videoUrl={selectedVideo?.url || ""}
                     title={selectedVideo?.title || ""}
+                    lessonId={selectedVideo?.id}
                 />
 
                 <div className="mt-16 text-center">

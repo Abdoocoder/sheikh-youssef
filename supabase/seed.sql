@@ -48,3 +48,16 @@ ON CONFLICT (title) DO UPDATE
 SET description = EXCLUDED.description,
     published_year = EXCLUDED.published_year,
     cover_url = EXCLUDED.cover_url;
+
+-- Seed data for Playlist Items (Example)
+INSERT INTO playlist_items (content_id, title, video_id, position)
+SELECT id, 'مقدمة في أدب طلب العلم', 'wEC_JTiiLiE', 1 FROM content WHERE slug = 'lesson-tadkira-samia'
+ON CONFLICT (content_id, position) DO NOTHING;
+
+INSERT INTO playlist_items (content_id, title, video_id, position)
+SELECT id, 'الدرس الأول: فضل العلم وأهله', 'sgJdho2JkKc', 2 FROM content WHERE slug = 'lesson-tadkira-samia'
+ON CONFLICT (content_id, position) DO NOTHING;
+
+INSERT INTO playlist_items (content_id, title, video_id, position)
+SELECT id, 'الدرس الثاني: آداب العالم في نفسه', 'exWnP3dh9l0', 3 FROM content WHERE slug = 'lesson-tadkira-samia'
+ON CONFLICT (content_id, position) DO NOTHING;

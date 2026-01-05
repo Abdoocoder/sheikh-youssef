@@ -8,7 +8,16 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { Loader2 } from "lucide-react";
 
-const books = [
+interface Book {
+    id: string | number;
+    title: string;
+    description: string;
+    cover: string;
+    year: string;
+    status: "available" | "soon";
+}
+
+const books: Book[] = [
     {
         id: 1,
         title: "الوجيز في الفقه الحنفي",
@@ -36,7 +45,7 @@ const books = [
 ];
 
 export function BooksList() {
-    const [bookItems, setBookItems] = useState<any[]>(books);
+    const [bookItems, setBookItems] = useState<Book[]>(books);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -49,7 +58,7 @@ export function BooksList() {
             if (error) {
                 console.error('Error fetching books:', error);
             } else if (data && data.length > 0) {
-                setBookItems(data.map(book => ({
+                setBookItems((data as { id: string, title: string, description: string, cover_url: string | null, published_year: number, pdf_url: string | null }[]).map(book => ({
                     id: book.id,
                     title: book.title,
                     description: book.description,
