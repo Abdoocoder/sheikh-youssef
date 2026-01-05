@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { Loader2 } from "lucide-react";
+import { BookSkeleton } from "./Skeleton";
 
 interface Book {
     id: string | number;
@@ -75,10 +75,16 @@ export function BooksList() {
 
     if (loading) {
         return (
-            <div className="py-20 text-center">
-                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
-                <p className="text-muted-foreground font-serif">جاري تحميل المكتبة...</p>
-            </div>
+            <main className="flex-grow py-20 bg-background">
+                <div className="container mx-auto px-4">
+                    <div className="mb-12">
+                        <SectionHeading title="المؤلفات العلمية" subtitle="مجموعة من الكتب والتحقيقات العلمية للشيخ في مختلف الفنون الشرعية" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+                        {[1, 2, 3].map(i => <BookSkeleton key={i} />)}
+                    </div>
+                </div>
+            </main>
         );
     }
     return (

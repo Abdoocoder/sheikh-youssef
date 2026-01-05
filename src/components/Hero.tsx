@@ -31,7 +31,7 @@ export function Hero() {
                     className="max-w-4xl mx-auto"
                 >
                     <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider text-secondary uppercase bg-secondary/10 border border-secondary/20 rounded-full">
-                        الموقع الرسمي
+                        بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة
                     </span>
                     <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight">
                         فضيلة الشيخ <br />

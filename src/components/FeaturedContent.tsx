@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { PlayCircle, Clock, Loader2, Calendar } from "lucide-react";
+import { PlayCircle, Clock, Calendar } from "lucide-react";
 import { SectionHeading } from "./Hero";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { VideoModal } from "./VideoModal";
 import Link from "next/link";
 import { getYouTubeId } from "@/lib/youtube";
+import { LessonSkeleton } from "./Skeleton";
 
 interface LessonItem {
     id: string;
@@ -81,10 +82,19 @@ export function FeaturedContent() {
 
     if (loading) {
         return (
-            <div className="py-20 text-center">
-                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
-                <p className="text-muted-foreground font-serif">جاري تحميل الدروس...</p>
-            </div>
+            <section className="py-32 bg-background">
+                <div className="container mx-auto px-4">
+                    <div className="mb-20">
+                        <SectionHeading
+                            title="أحدث الدروس العلمية"
+                            subtitle="سلاسل علمية منهجية في الفقه والتزكية والعلوم الشرعية"
+                        />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[1, 2, 3].map(i => <LessonSkeleton key={i} />)}
+                    </div>
+                </div>
+            </section>
         );
     }
     return (

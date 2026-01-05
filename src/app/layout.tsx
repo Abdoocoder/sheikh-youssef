@@ -19,8 +19,26 @@ const notoSansArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "الشيخ يوسف حازم أبو غزالة",
-  description: "الموقع الرسمي للشيخ يوسف حازم أبو غزالة - دروس، فتاوى، ومقالات.",
+  title: {
+    default: "الشيخ يوسف حازم أبو غزالة",
+    template: "%s | الشيخ يوسف أبو غزالة"
+  },
+  description: "الموقع التعليمي للشيخ يوسف حازم أبو غزالة - دروس، فتاوى، ومقالات. بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة",
+  keywords: ["الشيخ يوسف أبو غزالة", "فقه حنفي", "تزكية", "طلبة العلم", "فتاوى شرعية"],
+  authors: [{ name: "Sheikh Youssef Abu Ghazaleh" }],
+  openGraph: {
+    title: "الشيخ يوسف حازم أبو غزالة",
+    description: "الموقع التعليمي والشرعي لفضيلة الشيخ يوسف حازم أبو غزالة",
+    url: "https://sheikh-youssef.com", // Adjust if domain is known
+    siteName: "الشيخ يوسف أبو غزالة",
+    locale: "ar_SA",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "الشيخ يوسف حازم أبو غزالة",
+    description: "الموقع التعليمي والشرعي لفضيلة الشيخ يوسف حازم أبو غزالة",
+  },
 };
 
 export default function RootLayout({

@@ -1,15 +1,15 @@
 "use client";
 
 import { SectionHeading } from "@/components/Hero";
-import { Search } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useEffect } from "react";
-import { Loader2, Calendar, Clock, PlayCircle } from "lucide-react";
+import { Calendar, Clock, PlayCircle, Search } from "lucide-react";
 import { VideoModal } from "./VideoModal";
 import Image from "next/image";
 import { getYouTubeId } from "@/lib/youtube";
+import { LessonSkeleton } from "./Skeleton";
 
 interface Lesson {
     id: string;
@@ -100,6 +100,7 @@ export function LessonsList() {
     const [lessonItems, setLessonItems] = useState<Lesson[]>(lessons);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("الكل");
+    const [searchTerm, setSearchTerm] = useState("");
     const [selectedVideo, setSelectedVideo] = useState<{ id: string; url: string; title: string } | null>(null);
     const categories = ["الكل", "الفقه", "التزكية", "الأصول", "التربية", "أذكار", "خطب", "التفسير", "أدب طلب العلم"];
 
@@ -131,16 +132,25 @@ export function LessonsList() {
         fetchLessons();
     }, []);
 
-    const filteredLessons = selectedCategory === "الكل"
-        ? lessonItems
-        : lessonItems.filter(l => l.category === selectedCategory);
+    const filteredLessons = lessonItems.filter(l => {
+        const matchesCategory = selectedCategory === "الكل" || l.category === selectedCategory;
+        const matchesSearch = l.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            l.category.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesCategory && matchesSearch;
+    });
 
     if (loading) {
         return (
-            <div className="py-20 text-center">
-                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
-                <p className="text-muted-foreground font-serif">جاري تحميل الدروس...</p>
-            </div>
+            <main className="flex-grow py-20 bg-background">
+                <div className="container mx-auto px-4">
+                    <div className="mb-12">
+                        <SectionHeading title="الدروس العلمية" subtitle="مكتبة مرئية وصوتية متكاملة لجميع الدروس والمجالس العلمية" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        {[1, 2, 3, 4, 5, 6].map(i => <LessonSkeleton key={i} />)}
+                    </div>
+                </div>
+            </main>
         );
     }
 
@@ -172,6 +182,8 @@ export function LessonsList() {
                         <input
                             type="text"
                             placeholder="ابحث عن درس..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-10 pr-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all"
                         />
                     </div>

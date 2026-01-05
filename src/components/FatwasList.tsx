@@ -1,9 +1,10 @@
 "use client";
 
 import { SectionHeading } from "@/components/Hero";
-import { Search, MessageCircle, ChevronRight, HelpCircle, Loader2 } from "lucide-react";
+import { Search, MessageCircle, ChevronRight, HelpCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { FatwaSkeleton } from "./Skeleton";
 
 interface Fatwa {
     id: string | number;
@@ -22,6 +23,7 @@ const fatwas: Fatwa[] = [
 
 export function FatwasList() {
     const [fatwaItems, setFatwaItems] = useState<Fatwa[]>(fatwas);
+    const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -50,10 +52,16 @@ export function FatwasList() {
 
     if (loading) {
         return (
-            <div className="py-20 text-center">
-                <Loader2 className="h-10 w-10 animate-spin text-secondary mx-auto mb-4" />
-                <p className="text-muted-foreground font-serif">جاري تحميل الفتاوى...</p>
-            </div>
+            <main className="flex-grow py-20 bg-background">
+                <div className="container mx-auto px-4">
+                    <div className="mb-12">
+                        <SectionHeading title="ركن الفتاوى" subtitle="إجابات شرعية مبنية على أدلة الكتاب والسنة ومنهج المذاهب المعتبرة" />
+                    </div>
+                    <div className="max-w-5xl mx-auto space-y-4">
+                        {[1, 2, 3, 4, 5].map(i => <FatwaSkeleton key={i} />)}
+                    </div>
+                </div>
+            </main>
         );
     }
     return (
@@ -83,12 +91,17 @@ export function FatwasList() {
                         <input
                             type="text"
                             placeholder="ابحث في أرشيف الفتاوى..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-12 pr-6 py-5 rounded-2xl border border-border shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 text-lg transition-all"
                         />
                     </div>
 
                     <div className="space-y-4">
-                        {fatwaItems.map(fatwa => (
+                        {fatwaItems.filter(f =>
+                            f.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            f.category.toLowerCase().includes(searchTerm.toLowerCase())
+                        ).map(fatwa => (
                             <div key={fatwa.id} className="glass p-6 rounded-2xl hover:border-secondary/30 transition-all group flex items-start justify-between gap-4 cursor-pointer">
                                 <div className="flex items-start gap-4 text-right">
                                     <div className="bg-primary/5 p-3 rounded-xl group-hover:bg-primary/10 transition-colors">

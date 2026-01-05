@@ -82,7 +82,7 @@ export async function Footer() {
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-primary-foreground/40 text-sm">
-                    <p>© {new Date().getFullYear()} جميع الحقوق محفوظة لأسرة الشيخ يوسف أبو غزالة</p>
+                    <p>© {new Date().getFullYear()} جميع الحقوق محفوظة لأسرة الشيخ يوسف أبو غزالة. بإدارة وإشراف أحد طلاب الشيخ يوسف ابو غزالة</p>
                     <div className="flex gap-6">
                         <Link href="/privacy" className="hover:text-white">سياسة الخصوصية</Link>
                         <Link href="/terms" className="hover:text-white">شروط الاستخدام</Link>
