@@ -213,7 +213,7 @@ export default function AdminBooks() {
                                     required
                                     type="text"
                                     className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                    value={editingBook.title}
+                                    value={editingBook.title || ""}
                                     onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
                                 />
                             </div>
@@ -223,7 +223,7 @@ export default function AdminBooks() {
                                     required
                                     rows={3}
                                     className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                    value={editingBook.description}
+                                    value={editingBook.description || ""}
                                     onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
                                 />
                             </div>
@@ -233,7 +233,7 @@ export default function AdminBooks() {
                                     <input
                                         type="url"
                                         className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
-                                        value={editingBook.cover_url}
+                                        value={editingBook.cover_url || ""}
                                         onChange={(e) => setEditingBook({ ...editingBook, cover_url: e.target.value })}
                                     />
                                 </div>
@@ -242,7 +242,7 @@ export default function AdminBooks() {
                                     <input
                                         type="number"
                                         className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                        value={editingBook.published_year}
+                                        value={editingBook.published_year || ""}
                                         onChange={(e) => setEditingBook({ ...editingBook, published_year: parseInt(e.target.value) })}
                                     />
                                 </div>
@@ -252,7 +252,7 @@ export default function AdminBooks() {
                                 <input
                                     type="url"
                                     className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
-                                    value={editingBook.pdf_url}
+                                    value={editingBook.pdf_url || ""}
                                     onChange={(e) => setEditingBook({ ...editingBook, pdf_url: e.target.value })}
                                 />
                             </div>

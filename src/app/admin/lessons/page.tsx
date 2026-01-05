@@ -138,7 +138,7 @@ export default function AdminLessons() {
                                     required
                                     type="text"
                                     className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                    value={editingLesson.title}
+                                    value={editingLesson.title || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, title: e.target.value })}
                                 />
                             </div>
@@ -148,7 +148,7 @@ export default function AdminLessons() {
                                     required
                                     type="url"
                                     className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
-                                    value={editingLesson.media_url}
+                                    value={editingLesson.media_url || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, media_url: e.target.value })}
                                 />
                             </div>
@@ -156,7 +156,7 @@ export default function AdminLessons() {
                                 <label className="text-sm font-bold text-muted-foreground px-1">التصنيف</label>
                                 <select
                                     className="w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                    value={editingLesson.category}
+                                    value={editingLesson.category || "أدب طلب العلم"}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, category: e.target.value })}
                                 >
                                     <option>أدب طلب العلم</option>

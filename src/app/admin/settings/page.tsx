@@ -104,7 +104,7 @@ export default function AdminSettings() {
                                 type="text"
                                 placeholder="مثال: فضيلة الشيخ يوسف حازم..."
                                 className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                value={settings.site_title}
+                                value={settings.site_title || ""}
                                 onChange={(e) => setSettings({ ...settings, site_title: e.target.value })}
                             />
                         </div>
@@ -114,7 +114,7 @@ export default function AdminSettings() {
                                 type="text"
                                 placeholder="وصف يظهر في محركات البحث..."
                                 className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif"
-                                value={settings.site_description}
+                                value={settings.site_description || ""}
                                 onChange={(e) => setSettings({ ...settings, site_description: e.target.value })}
                             />
                         </div>
@@ -134,7 +134,7 @@ export default function AdminSettings() {
                                 type="email"
                                 placeholder="admin@example.com"
                                 className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
-                                value={settings.contact_email}
+                                value={settings.contact_email || ""}
                                 onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
                             />
                         </div>
@@ -144,7 +144,7 @@ export default function AdminSettings() {
                                 type="text"
                                 placeholder="+9627XXXXXXXX"
                                 className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr"
-                                value={settings.whatsapp_number}
+                                value={settings.whatsapp_number || ""}
                                 onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
                             />
                         </div>
@@ -164,7 +164,7 @@ export default function AdminSettings() {
                                 type="text"
                                 placeholder="URL..."
                                 className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm"
-                                value={settings.facebook_url}
+                                value={settings.facebook_url || ""}
                                 onChange={(e) => setSettings({ ...settings, facebook_url: e.target.value })}
                             />
                         </div>
@@ -174,7 +174,7 @@ export default function AdminSettings() {
                                 type="text"
                                 placeholder="URL..."
                                 className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm"
-                                value={settings.youtube_url}
+                                value={settings.youtube_url || ""}
                                 onChange={(e) => setSettings({ ...settings, youtube_url: e.target.value })}
                             />
                         </div>
@@ -184,7 +184,7 @@ export default function AdminSettings() {
                                 type="text"
                                 placeholder="URL..."
                                 className="w-full px-3 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-sm"
-                                value={settings.telegram_url}
+                                value={settings.telegram_url || ""}
                                 onChange={(e) => setSettings({ ...settings, telegram_url: e.target.value })}
                             />
                         </div>
