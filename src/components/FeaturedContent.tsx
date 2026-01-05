@@ -10,7 +10,7 @@ const featuredLessons = [
         title: "شرح الأوراد الشاذلية للعلامة ابن عجيبة",
         category: "التزكية",
         date: "متجدد",
-        image: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=400",
+        image: "/assets/lesson-general.png",
         id: "lesson-awrad",
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsS0YKk8Zg9neCnVUDSJLFNJ"
     },
@@ -18,7 +18,7 @@ const featuredLessons = [
         title: "درس الفقه - متن القدوري في الفقه الحنفي",
         category: "الفقه",
         date: "متجدد",
-        image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=400",
+        image: "/assets/book-fiqh.png",
         id: "lesson-quduri",
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsRCchUPTaqYwc7Xfa_s5BoO"
     },
@@ -26,7 +26,7 @@ const featuredLessons = [
         title: "تذكرة السامع والمتكلم في أدب العالم والمتعلم",
         category: "أدب طلب العلم",
         date: "متجدد",
-        image: "https://images.unsplash.com/photo-1512428559083-a4019313af3c?auto=format&fit=crop&q=80&w=400",
+        image: "/assets/lesson-general.png",
         id: "lesson-tadkira",
         url: "https://www.youtube.com/playlist?list=PL_mR76HnumsSnHQpJPR7lWBVEew85hgL8"
     }

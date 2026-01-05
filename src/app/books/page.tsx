@@ -12,7 +12,7 @@ const books = [
         id: 1,
         title: "الوجيز في الفقه الحنفي",
         description: "كتاب جامع لأهم مسائل العبادات والمعاملات على مذهب الإمام أبي حنيفة النعمان بأسلوب عصري ميسر.",
-        cover: "https://images.unsplash.com/photo-1544648156-53884518823b?auto=format&fit=crop&q=80&w=400",
+        cover: "/assets/book-fiqh.png",
         year: "2023",
         status: "available"
     },
@@ -20,7 +20,7 @@ const books = [
         id: 2,
         title: "أنوار التزكية في شرح الوظيفة الزروقية",
         description: "شرح تربوي وعلمي لوظيفة الإمام أحمد زروق رضي الله عنه، يتناول آداب السلوك وتزكية النفس.",
-        cover: "https://images.unsplash.com/photo-1589998059171-988d887df643?auto=format&fit=crop&q=80&w=400",
+        cover: "/assets/book-spiritual.png",
         year: "2024",
         status: "soon"
     },
@@ -28,7 +28,7 @@ const books = [
         id: 3,
         title: "المدخل إلى المصارف الإسلامية",
         description: "دراسة تحليلية لقواعد الاقتصاد الإسلامي وتطبيقاته في البنوك الحديثة، مع مقارنة بالفقه التقليدي.",
-        cover: "https://images.unsplash.com/photo-1543002588-bfa7400217eef?auto=format&fit=crop&q=80&w=400",
+        cover: "/assets/book-economics.png",
         year: "2022",
         status: "available"
     }
