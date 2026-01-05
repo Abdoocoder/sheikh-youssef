@@ -18,13 +18,21 @@ export const proxy = clerkMiddleware(async (auth, req) => {
         // Note: session.sessionClaims.publicMetadata is available if configured in Clerk Dashboard
         // For simplicity, we can also check the user's role if using Clerk Organizations,
         // but here we'll use publicMetadata.
-        const role = (session.sessionClaims?.metadata as { role?: string })?.role;
+        const claims = session.sessionClaims;
+        const role = (claims?.metadata as { role?: string })?.role;
+
+        console.log("--- Admin Access Debug ---");
+        console.log("User ID:", session.userId);
+        console.log("Session Claims Metadata:", claims?.metadata);
+        console.log("Detected Role:", role);
 
         if (role !== "admin") {
+            console.log("Access Denied: Redirecting to home");
             // Redirect to home if not admin
             const url = new URL("/", req.url);
             return NextResponse.redirect(url);
         }
+        console.log("Access Granted: Welcome Admin");
     }
 });
 
