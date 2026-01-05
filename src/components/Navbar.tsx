@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -13,12 +13,13 @@ const navLinks = [
   { name: "الدروس العلمية", href: "/lessons" },
   { name: "الفتاوى", href: "/fatwas" },
   { name: "الكتب", href: "/books" },
-  { name: "اتصل بنا", href: "/contact" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
+  const isAdmin = user?.publicMetadata?.role === "admin";
 
   return (
     <nav className="sticky top-0 z-50 w-full glass border-b border-border/40">
@@ -49,6 +50,17 @@ export function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              {isAdmin && (
+                <Link
+                  href="/admin/lessons"
+                  className={cn(
+                    "text-sm font-bold text-secondary hover:text-secondary/80 flex items-center gap-1",
+                    pathname.startsWith("/admin") ? "border-b-2 border-secondary" : ""
+                  )}
+                >
+                  لوحة التحكم
+                </Link>
+              )}
             </div>
           </div>
 
@@ -57,7 +69,7 @@ export function Navbar() {
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
             <SignedOut>
-              <SignInButton mode="modal">
+              <SignInButton mode="modal" fallbackRedirectUrl="/admin/lessons">
                 <button className="hidden md:block text-sm font-medium text-primary hover:text-secondary transition-colors">
                   تسجيل الدخول
                 </button>
