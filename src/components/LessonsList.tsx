@@ -28,7 +28,7 @@ export function LessonsList() {
     const [selectedCategory, setSelectedCategory] = useState("الكل");
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedVideo, setSelectedVideo] = useState<{ id: string; url: string; title: string } | null>(null);
-    const categories = ["الكل", "الفقه", "التزكية", "الأصول", "التربية", "أذكار", "خطب", "التفسير", "أدب طلب العلم"];
+    const categories = ["الكل", "أدب طلب العلم", "الفقه", "التزكية", "العقيدة", "الأصول", "التربية", "أذكار", "خطب", "التفسير"];
 
     useEffect(() => {
         const fetchLessons = async () => {

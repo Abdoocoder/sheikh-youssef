@@ -177,6 +177,11 @@ export default function AdminLessons() {
                                     <option>الفقه</option>
                                     <option>التزكية</option>
                                     <option>العقيدة</option>
+                                    <option>الأصول</option>
+                                    <option>التربية</option>
+                                    <option>أذكار</option>
+                                    <option>خطب</option>
+                                    <option>التفسير</option>
                                 </select>
                             </div>
                             <div className="flex gap-3 pt-4">
@@ -250,6 +255,11 @@ export default function AdminLessons() {
                                 <option>الفقه</option>
                                 <option>التزكية</option>
                                 <option>العقيدة</option>
+                                <option>الأصول</option>
+                                <option>التربية</option>
+                                <option>أذكار</option>
+                                <option>خطب</option>
+                                <option>التفسير</option>
                             </select>
                         </div>
                         <div className="flex items-end">
@@ -276,11 +286,17 @@ export default function AdminLessons() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <select className="px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary">
+                <select className="px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-primary" onChange={(e) => setSearchTerm(e.target.value === "كل التصنيفات" ? "" : e.target.value)}>
                     <option>كل التصنيفات</option>
+                    <option>أدب طلب العلم</option>
                     <option>الفقه</option>
                     <option>التزكية</option>
-                    <option>أدب طلب العلم</option>
+                    <option>العقيدة</option>
+                    <option>الأصول</option>
+                    <option>التربية</option>
+                    <option>أذكار</option>
+                    <option>خطب</option>
+                    <option>التفسير</option>
                 </select>
             </div>
 
