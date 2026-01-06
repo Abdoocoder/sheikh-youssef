@@ -19,6 +19,7 @@ interface Lesson {
     duration: string;
     date: string;
     url: string;
+    cover_image: string | null;
 }
 
 export function LessonsList() {
@@ -42,13 +43,14 @@ export function LessonsList() {
             if (error) {
                 console.error('Error fetching lessons:', error);
             } else if (data && data.length > 0) {
-                setLessonItems((data as { id: string | number, title: string, category: string, published_at: string, media_url: string }[]).map((item) => ({
+                setLessonItems((data as any[]).map((item) => ({
                     id: String(item.id),
                     title: item.title,
                     category: item.category,
                     duration: "سلسلة علمية",
                     date: new Date(item.published_at).toLocaleDateString('ar-EG'),
-                    url: item.media_url
+                    url: item.media_url,
+                    cover_image: item.cover_image
                 })));
             }
             setLoading(false);
@@ -119,7 +121,8 @@ export function LessonsList() {
                     <AnimatePresence mode="popLayout">
                         {filteredLessons.map((lesson, index) => {
                             const ytId = getYouTubeId(lesson.url);
-                            const thumbnailUrl = ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : null;
+                            // Prioritize uploaded cover image, then YouTube thumbnail
+                            const displayImage = lesson.cover_image || (ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : null);
 
                             return (
                                 <motion.div
@@ -134,9 +137,9 @@ export function LessonsList() {
                                 >
                                     {/* Image Container */}
                                     <div className="relative h-64 overflow-hidden">
-                                        {thumbnailUrl ? (
+                                        {displayImage ? (
                                             <Image
-                                                src={thumbnailUrl}
+                                                src={displayImage}
                                                 alt={lesson.title}
                                                 fill
                                                 className="object-cover transition-transform duration-1000 group-hover:scale-110"

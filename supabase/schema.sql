@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS content (
     media_type TEXT CHECK (media_type IN ('video', 'audio', 'image', 'none')),
     category TEXT, -- Text category for simpler management
     category_id UUID REFERENCES categories(id) ON DELETE SET NULL,
+    cover_image TEXT, -- Optional custom cover image (e.g., book cover)
     is_featured BOOLEAN DEFAULT FALSE,
     published_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -109,3 +110,11 @@ CREATE POLICY "Allow public insert on fatwa_questions" ON fatwa_questions FOR IN
 -- Allow authenticated users (Admins) to READ/UPDATE/DELETE
 DROP POLICY IF EXISTS "Allow authenticated full access on fatwa_questions" ON fatwa_questions;
 CREATE POLICY "Allow authenticated full access on fatwa_questions" ON fatwa_questions FOR ALL USING (auth.role() = 'authenticated');
+
+-- Ensure cover_image column exists on content table (Migration)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'content' AND column_name = 'cover_image') THEN
+        ALTER TABLE content ADD COLUMN cover_image TEXT;
+    END IF;
+END $$;

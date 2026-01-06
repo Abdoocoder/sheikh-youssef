@@ -12,6 +12,7 @@ interface Lesson {
     published_at: string;
     type: string;
     slug: string;
+    cover_image: string | null;
 }
 
 export default function AdminLessons() {
@@ -24,7 +25,8 @@ export default function AdminLessons() {
         title: "",
         media_url: "",
         category: "أدب طلب العلم",
-        type: "lesson"
+        type: "lesson",
+        cover_image: ""
     });
 
     const fetchLessons = useCallback(async () => {
@@ -71,7 +73,8 @@ export default function AdminLessons() {
             .insert([{
                 ...newLesson,
                 slug,
-                published_at: new Date().toISOString()
+                published_at: new Date().toISOString(),
+                cover_image: newLesson.cover_image || null
             }])
             .select();
 
@@ -80,7 +83,7 @@ export default function AdminLessons() {
         } else {
             if (data) setLessons([data[0], ...lessons]);
             setShowAddForm(false);
-            setNewLesson({ title: "", media_url: "", category: "أدب طلب العلم", type: "lesson" });
+            setNewLesson({ title: "", media_url: "", category: "أدب طلب العلم", type: "lesson", cover_image: "" });
         }
     };
 
@@ -93,7 +96,8 @@ export default function AdminLessons() {
             .update({
                 title: editingLesson.title,
                 media_url: editingLesson.media_url,
-                category: editingLesson.category
+                category: editingLesson.category,
+                cover_image: editingLesson.cover_image || null
             })
             .eq('id', editingLesson.id);
 
@@ -150,6 +154,16 @@ export default function AdminLessons() {
                                     className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary bg-background"
                                     value={editingLesson.media_url || ""}
                                     onChange={(e) => setEditingLesson({ ...editingLesson, media_url: e.target.value })}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-muted-foreground px-1">صورة الغلاف (اختياري)</label>
+                                <input
+                                    type="url"
+                                    placeholder="https://example.com/image.jpg"
+                                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary bg-background"
+                                    value={editingLesson.cover_image || ""}
+                                    onChange={(e) => setEditingLesson({ ...editingLesson, cover_image: e.target.value })}
                                 />
                             </div>
                             <div className="space-y-2">
@@ -213,6 +227,16 @@ export default function AdminLessons() {
                                 className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary placeholder:text-primary/50 bg-background"
                                 value={newLesson.media_url}
                                 onChange={(e) => setNewLesson({ ...newLesson, media_url: e.target.value })}
+                            />
+                        </div>
+                        <div className="md:col-span-2 space-y-2">
+                            <label className="text-sm font-bold text-muted-foreground px-1">صورة الغلاف (اختياري)</label>
+                            <input
+                                type="url"
+                                placeholder="https://example.com/image.jpg"
+                                className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all font-serif text-left ltr text-primary placeholder:text-primary/50 bg-background"
+                                value={newLesson.cover_image}
+                                onChange={(e) => setNewLesson({ ...newLesson, cover_image: e.target.value })}
                             />
                         </div>
                         <div className="space-y-2">
