@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import { ShareButtons } from "@/components/ShareButtons";
 import { HelpCircle, Calendar, ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { SectionHeading } from "@/components/Hero";
 
 type Props = {
     params: { slug: string };

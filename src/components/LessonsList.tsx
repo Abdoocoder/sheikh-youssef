@@ -43,7 +43,7 @@ export function LessonsList() {
             if (error) {
                 console.error('Error fetching lessons:', error);
             } else if (data && data.length > 0) {
-                setLessonItems((data as any[]).map((item) => ({
+                setLessonItems(data.map((item) => ({
                     id: String(item.id),
                     title: item.title,
                     category: item.category,

@@ -4,7 +4,6 @@ import { X, Loader2, Send, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { cn } from "@/lib/utils";
 
 interface FatwaRequestFormProps {
     isOpen: boolean;
@@ -78,9 +77,10 @@ export function FatwaRequestForm({ isOpen, onClose }: FatwaRequestFormProps) {
                 handleClose();
             }, 3000);
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
-            setError(err.message || "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.");
+            const errorMessage = err instanceof Error ? err.message : "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.";
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }
