@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS fatwa_questions (
     asker_email TEXT,
     is_private BOOLEAN DEFAULT FALSE,
     status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'answered', 'rejected')),
+    answer TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
