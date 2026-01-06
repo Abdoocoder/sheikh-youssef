@@ -37,12 +37,12 @@ export function FeaturedContent() {
             if (error) {
                 console.error('Error fetching featured lessons:', error);
             } else if (data && data.length > 0) {
-                setLessons((data as { id: string, title: string, category: string, published_at: string, media_url: string }[]).map((item) => ({
+                setLessons((data as { id: string; title: string; category: string; published_at: string; media_url: string; cover_image: string | null }[]).map((item) => ({
                     id: item.id,
                     title: item.title,
                     category: item.category,
                     date: new Date(item.published_at).toLocaleDateString('ar-EG'),
-                    image: "/assets/lesson-general.png",
+                    image: item.cover_image || "/assets/lesson-general.png",
                     url: item.media_url
                 })));
             }
@@ -82,7 +82,13 @@ export function FeaturedContent() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {lessons.map((lesson, index) => {
                         const ytId = getYouTubeId(lesson.url);
-                        const thumbnailUrl = ytId ? `https://i.ytimg.com/vi/${ytId}/maxresdefault.jpg` : lesson.image;
+                        // Logic: 1. Cover Image (from DB) 2. YouTube Thumbnail 3. Fallback (lesson-general.png)
+                        const isGeneralImage = lesson.image === "/assets/lesson-general.png";
+                        let thumbnailUrl = lesson.image;
+
+                        if (isGeneralImage && ytId) {
+                            thumbnailUrl = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+                        }
 
                         return (
                             <motion.div

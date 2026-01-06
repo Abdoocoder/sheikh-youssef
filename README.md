@@ -24,6 +24,7 @@
 - **Database**: [Supabase (PostgreSQL)](https://supabase.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Monitoring**: [Sentry](https://sentry.io/)
 
 ## 🚀 البدء بالعمل
 
@@ -44,6 +45,9 @@ CLERK_SECRET_KEY=sk_test_...
 # Supabase Database
 NEXT_PUBLIC_SUPABASE_URL=https://...supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...
+
+# Sentry (Optional for Build)
+SENTRY_AUTH_TOKEN=sntrys_...
 ```
 
 ### 3. التثبيت والتشغيل
