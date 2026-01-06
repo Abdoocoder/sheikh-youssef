@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'kitabialhadif.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.shaziliaassemia.com',
+      },
     ],
   },
 };
