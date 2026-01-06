@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { AudioPlayerProvider } from "@/lib/AudioPlayerContext";
+import { PersistentPlayer } from "@/components/PersistentPlayer";
 
 const amiri = Amiri({
   variable: "--font-amiri",
@@ -56,7 +58,10 @@ export default function RootLayout({
             notoSansArabic.variable
           )}
         >
-          {children}
+          <AudioPlayerProvider>
+            {children}
+            <PersistentPlayer />
+          </AudioPlayerProvider>
           <Analytics />
           <SpeedInsights />
         </body>

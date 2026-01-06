@@ -5,12 +5,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useEffect } from "react";
-import { Calendar, Clock, PlayCircle, Search } from "lucide-react";
+import { Calendar, Clock, PlayCircle, Search, Headphones } from "lucide-react";
 import { VideoModal } from "./VideoModal";
 import Image from "next/image";
 import { getYouTubeId } from "@/lib/youtube";
 import { LessonSkeleton } from "./Skeleton";
 import { ShareButtons } from "./ShareButtons";
+import { useAudioPlayer } from "@/lib/AudioPlayerContext";
 
 interface Lesson {
     id: string;
@@ -23,6 +24,7 @@ interface Lesson {
 }
 
 export function LessonsList() {
+    const { play, currentTrack } = useAudioPlayer();
     const [lessonItems, setLessonItems] = useState<Lesson[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("الكل");
@@ -182,8 +184,37 @@ export function LessonsList() {
                                                 <span className="text-xs font-medium">{lesson.date}</span>
                                             </div>
 
-                                            <div className="flex items-center gap-4">
+                                            <div className="flex items-center gap-3">
                                                 <ShareButtons title={lesson.title} url={lesson.url} className="scale-90" />
+
+                                                {/* Audio Player Button */}
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        play(
+                                                            {
+                                                                id: lesson.id,
+                                                                title: lesson.title,
+                                                                url: lesson.url,
+                                                                coverImage: displayImage,
+                                                            },
+                                                            filteredLessons.map(l => ({
+                                                                id: l.id,
+                                                                title: l.title,
+                                                                url: l.url,
+                                                                coverImage: l.cover_image || (getYouTubeId(l.url) ? `https://i.ytimg.com/vi/${getYouTubeId(l.url)}/hqdefault.jpg` : null),
+                                                            }))
+                                                        );
+                                                    }}
+                                                    className={`p-2 rounded-full transition-all ${currentTrack?.id === lesson.id
+                                                            ? 'bg-secondary text-secondary-foreground shadow-lg'
+                                                            : 'hover:bg-secondary/10 text-secondary'
+                                                        }`}
+                                                    title="استمع الآن"
+                                                >
+                                                    <Headphones className="h-4 w-4" />
+                                                </button>
+
                                                 <button className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-all">
                                                     <span>ابدأ التعلم</span>
                                                     <span className="transform translate-y-[2px]">←</span>
