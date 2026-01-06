@@ -146,6 +146,8 @@ export function LessonsList() {
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                                                loading={index < 3 ? "eager" : "lazy"}
+                                                priority={index === 0}
                                             />
                                         ) : (
                                             <div className="w-full h-full bg-primary/20 flex items-center justify-center">
@@ -207,8 +209,8 @@ export function LessonsList() {
                                                         );
                                                     }}
                                                     className={`p-2 rounded-full transition-all ${currentTrack?.id === lesson.id
-                                                            ? 'bg-secondary text-secondary-foreground shadow-lg'
-                                                            : 'hover:bg-secondary/10 text-secondary'
+                                                        ? 'bg-secondary text-secondary-foreground shadow-lg'
+                                                        : 'hover:bg-secondary/10 text-secondary'
                                                         }`}
                                                     title="استمع الآن"
                                                 >
